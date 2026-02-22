@@ -195,6 +195,198 @@ Comprehensive visual guides and sequence diagrams for understanding the architec
   - Client-side prefetching and query patterns
   - Advanced patterns (caching, batching, context)
 
+## 🔄 Key Architecture Diagrams
+
+### Chapter 2 - User Creation Flow (Database & ORM)
+
+```mermaid
+sequenceDiagram
+    participant Client as Client/Frontend
+    participant API as API Route
+    participant AuthLib as Auth Library
+    participant Prisma as Prisma Client
+    participant DB as PostgreSQL<br/>(Neon)
+    
+    Client->>API: POST /api/... (username, email, password)
+    API->>AuthLib: createUser(data)
+    AuthLib->>AuthLib: hashPassword(password)
+    AuthLib->>Prisma: prisma.user.create()
+    Prisma->>DB: INSERT INTO "User" (email, username, password)
+    DB-->>Prisma: User { id, email, created_at }
+    Prisma-->>AuthLib: User object (password excluded)
+    AuthLib-->>API: { success: true, user }
+    API-->>Client: 200 OK { user }
+```
+
+**Flow Explanation:**
+1. Client submits form with credentials
+2. Password hashed with bcrypt (10 salt rounds)
+3. Prisma creates user in PostgreSQL
+4. Password hash stored (never returned to client)
+5. User data returned without sensitive fields
+
+---
+
+### Chapter 2 - Authentication Flow (Password Verification)
+
+```mermaid
+sequenceDiagram
+    participant Client as Client/Frontend
+    participant API as API Route
+    participant AuthLib as Auth Library<br/>(verifyPassword)
+    participant Prisma as Prisma Client
+    participant DB as PostgreSQL<br/>(Neon)
+    participant JWT as JWT/Session
+    
+    Client->>API: POST /api/login (email, password)
+    API->>AuthLib: authenticateUser(email, password)
+    AuthLib->>Prisma: prisma.user.findUnique()
+    Prisma->>DB: SELECT * FROM "User" WHERE email = ?
+    DB-->>Prisma: User { password_hash, ... }
+    Prisma-->>AuthLib: User object
+    AuthLib->>AuthLib: verifyPassword(inputPassword, hash)
+    alt Password Matches
+        AuthLib-->>API: User { id, email, username }
+        API->>JWT: createSession(userId)
+        JWT-->>API: token/cookie
+        API-->>Client: 200 OK { user, token }
+    else Password Invalid
+        AuthLib-->>API: null or error
+        API-->>Client: 401 Unauthorized
+    end
+```
+
+**Security Features:**
+- Timing-safe password comparison (bcrypt.compare)
+- Email indexed for fast lookups
+- Password never leaked on failed auth
+- Session/JWT created only on success
+
+---
+
+### Chapter 3 - Server-Side Prefetching Flow
+
+```mermaid
+sequenceDiagram
+    participant Browser as Browser/Client
+    participant Server as Next.js Server<br/>(page.tsx)
+    participant QueryClient as React Query<br/>QueryClient
+    participant tRPC as tRPC Router
+    participant Prisma as Prisma Client
+    participant DB as PostgreSQL<br/>(Neon)
+    
+    Browser->>Server: GET /
+    Server->>QueryClient: create new instance
+    Server->>tRPC: queryClient.prefetchQuery(getUsers)
+    tRPC->>Prisma: prisma.user.findMany()
+    Prisma->>DB: SELECT * FROM "User"
+    DB-->>Prisma: User[]
+    Prisma-->>tRPC: [ { id, email, username }, ... ]
+    tRPC-->>QueryClient: store in cache
+    Server->>Server: dehydrate(queryClient)
+    Server->>Server: HydrationBoundary { state }
+    Server-->>Browser: HTML + dehydrated state
+    Browser->>Browser: Hydrate QueryClient
+    Browser->>Browser: useQuery hook reads cache
+    Browser-->>Browser: Render with data (no loading)
+```
+
+**Performance Benefits:**
+- Data fetched on server (faster database access)
+- HTML includes data (LCP improvement)
+- Browser hydrates from cache (zero loading state)
+- No waterfalls (browser won't re-fetch)
+
+---
+
+### Chapter 3 - Client-Side Query Flow
+
+```mermaid
+sequenceDiagram
+    participant Component as React Component<br/>(client.tsx)
+    participant Hook as useQuery Hook
+    participant Client as tRPC Client
+    participant HTTPLink as HTTP Link<br/>(Batch)
+    participant APIRoute as API Route<br/>([trpc]/route.ts)
+    participant Router as tRPC Router
+    participant Prisma as Prisma Client
+    participant DB as PostgreSQL
+    
+    Component->>Hook: useQuery(trpc.getUsers)
+    Hook->>Client: Execute query
+    Client->>HTTPLink: POST /api/trpc/getUsers
+    HTTPLink->>APIRoute: Request with context
+    APIRoute->>Router: Call procedure handler
+    Router->>Prisma: prisma.user.findMany()
+    Prisma->>DB: SELECT * FROM "User"
+    DB-->>Prisma: User[]
+    Prisma-->>Router: Results
+    Router-->>APIRoute: Response
+    APIRoute-->>HTTPLink: 200 OK { result: [...] }
+    HTTPLink-->>Client: Deserialize response
+    Client-->>Hook: Update cache + state
+    Hook-->>Component: Trigger re-render
+    Component->>Component: Render with data
+```
+
+**Key Features:**
+- Type-safe queries from TypeScript types
+- Automatic request batching
+- React Query handles caching
+- superjson serialization for complex types
+- Automatic loading/error states
+
+---
+
+### Chapter 3 - tRPC Context & Middleware (Per-Request Caching)
+
+```mermaid
+sequenceDiagram
+    participant Request as HTTP Request
+    participant Middleware as tRPC Middleware<br/>(context)
+    participant SessionCache as React cache()<br/>(Per-request)
+    participant Procedure as tRPC Procedure
+    participant Prisma as Prisma Client
+    participant DB as PostgreSQL
+    
+    Request->>Middleware: API call
+    Middleware->>Middleware: Extract headers/cookies
+    Middleware->>SessionCache: Verify session (cached)
+    SessionCache->>DB: First request: Check auth
+    DB-->>SessionCache: User session data
+    SessionCache-->>Middleware: Return cached session
+    Middleware->>Procedure: Call with context
+    Procedure->>Procedure: Type-safe input validation
+    Procedure->>Prisma: Execute query/mutation
+    Prisma->>DB: Database operation
+    DB-->>Prisma: Result
+    Prisma-->>Procedure: Typed response
+    Procedure-->>Request: JSON response (serialized by superjson)
+```
+
+**Context Benefits:**
+- Context created once per request
+- React `cache()` deduplicates identical calls
+- Session verified once, used everywhere
+- Type-safe within procedures
+- Prisma context available to all handlers
+
+---
+
+## Architecture Comparison
+
+| Aspect | Chapter 2 | Chapter 3 |
+|--------|-----------|----------|
+| **Type Safety** | Partial (Prisma → API) | End-to-end (DB → Client) |
+| **API Definition** | Manual routes | tRPC routers |
+| **Client Queries** | fetch() + types | useQuery hooks |
+| **Data Format** | JSON | superjson (Dates, BigInt) |
+| **Caching** | Manual | React Query built-in |
+| **Server Data** | Separate calls | Prefetch + hydrate |
+| **Context Sharing** | Per-route | Middleware + cache |
+
+For detailed explanations of these flows, see [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md) and [ARCHITECTURE_REFERENCE.md](ARCHITECTURE_REFERENCE.md).
+
 ## Prisma Commands
 
 - `npx prisma studio` - Open Prisma Studio
