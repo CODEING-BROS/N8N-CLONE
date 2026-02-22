@@ -167,6 +167,34 @@ model Post {
 - `npm run lint` - Run Biome linter
 - `npm run format` - Format code with Biome
 
+## 📊 Visual Documentation
+
+Comprehensive visual guides and sequence diagrams for understanding the architecture:
+
+- **[Sequence Diagrams](SEQUENCE_DIAGRAMS.md)** - Complete request/response flows for all chapters
+  - Chapter 2: User creation, authentication, and Prisma data flows
+  - Chapter 3: Server-side prefetching, client-side queries, and tRPC context
+  - Timing diagrams and performance metrics
+
+- **[Architecture Reference Guide](ARCHITECTURE_REFERENCE.md)** - Visual architecture and component relationships
+  - Layer diagrams showing data flow through the application
+  - Database schema visualizations with relationships
+  - Type safety flow from Prisma → tRPC → Client
+  - Server-side rendering flow with hydration
+  - Performance characteristics and metrics
+
+- **[Chapter 2 Technical Summary](CHAPTER_2_SUMMARY.md)** - Database & ORM deep-dive (1000+ lines)
+  - Prisma setup and configuration
+  - Password hashing with bcrypt security patterns
+  - Database migration strategies
+  - Authentication and authorization flows
+
+- **[Chapter 3 Technical Summary](CHAPTER_3_SUMMARY.md)** - tRPC Setup deep-dive (1000+ lines)
+  - tRPC architecture with full-stack type safety
+  - Server procedure implementation
+  - Client-side prefetching and query patterns
+  - Advanced patterns (caching, batching, context)
+
 ## Prisma Commands
 
 - `npx prisma studio` - Open Prisma Studio
