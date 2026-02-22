@@ -1,0 +1,93 @@
+# CodeRabbit Configuration
+# https://docs.coderabbit.ai/guides/review-instructions/
+
+language: en-US
+early_access: true
+enable_free_tier: true
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: true
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    
+  # Auto-approve simple changes
+  auto_approve:
+    enabled: false
+    
+chat:
+  auto_reply: true
+
+# File patterns to review
+path_filters:
+  - "!**/node_modules/**"
+  - "!**/dist/**"
+  - "!**/.next/**"
+  - "!**/build/**"
+  - "!**/.turbo/**"
+  - "!**/package-lock.json"
+  - "!**/yarn.lock"
+  - "!**/pnpm-lock.yaml"
+
+# Custom instructions for better reviews
+custom_prompts:
+  - prompt: |
+      Review this PR with focus on:
+      1. Security implications (especially auth, database queries, password handling)
+      2. TypeScript type safety and proper typing
+      3. Next.js best practices (Server Components, caching, data fetching)
+      4. Prisma usage patterns and query optimization
+      5. Performance considerations
+      6. Code organization and maintainability
+      
+      For each chapter-based PR:
+      - Verify all chapter objectives are met
+      - Check if documentation is updated
+      - Ensure test helpers and utilities are properly implemented
+      - Validate database migrations/schema changes
+      
+      Provide visual diagrams for:
+      - Database schema relationships
+      - Component hierarchy (when UI changes)
+      - Authentication flow (when auth is involved)
+      - API endpoint structure
+      
+      Generate a summary that includes:
+      - Key technical achievements
+      - Architecture decisions
+      - Security improvements
+      - Performance impact
+      - Breaking changes (if any)
+
+# Summary settings for better visualizations
+summary:
+  enabled: true
+  format: "markdown"
+  include:
+    - file_changes
+    - test_coverage
+    - complexity_metrics
+    - security_insights
+    - performance_impact
+    
+# Enable diagram generation
+diagrams:
+  enabled: true
+  
+# Knowledge base - help CodeRabbit understand project context
+knowledge_base:
+  - path: "README.md"
+    description: "Main project documentation with chapter-based progress tracking"
+  - path: "prisma/schema.prisma"
+    description: "Database schema for PostgreSQL with Prisma ORM"
+  - path: "src/lib/**"
+    description: "Utility functions, database client, auth helpers"
+  - path: "src/app/**"
+    description: "Next.js App Router pages and API routes"
+  - path: "CHAPTER_*.md"
+    description: "Detailed summaries for each development chapter"
