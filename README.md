@@ -2,121 +2,165 @@
 
 A workflow automation platform inspired by n8n. This project enables users to create, manage, and execute complex automation workflows with a visual interface.
 
+## 📚 Development Progress
+
+### Chapter 1: Project Setup ✅
+- [x] Initialize Next.js 15.5.4 with Turbopack
+- [x] Set up TypeScript configuration
+- [x] Configure Biome for linting and formatting
+- [x] Install and configure Tailwind CSS v4
+- [x] Set up Shadcn UI component library
+- [x] Project structure organization
+
+### Chapter 2: Database and ORM ✅
+- [x] Set up Prisma ORM (v6.16.3)
+- [x] Configure PostgreSQL database (Neon)
+- [x] Create database schema (User & Post models)
+- [x] Explore Prisma Studio
+- [x] Test Prisma API integration
+- [x] Database migrations and seeding
+
 ## Project Structure
 
 ```
 N8NCLONE/
-├── backend/          # Server-side application
-└── frontend/         # Client-side application
+├── prisma/
+│   └── schema.prisma      # Database schema
+├── src/
+│   ├── app/               # Next.js app directory
+│   ├── components/        # React components
+│   │   └── ui/           # Shadcn UI components
+│   ├── lib/              # Utility functions and db client
+│   └── hooks/            # Custom React hooks
+├── public/               # Static assets
+└── package.json
 ```
 
 ## Tech Stack
 
-### Prerequisites
-- **Node.js**: v18.18 or higher
-- **npm**: v9 or higher
-
-### Backend
-- **Language**: Node.js
-- **Framework**: (To be determined)
-- **Database**: (To be determined)
-- **API**: REST/GraphQL (To be determined)
-- **Dependencies**: (Check `backend/package.json` for details)
-
-### Frontend
-- **Framework**: Next.js 15.5.4 (with Turbopack)
-- **Language**: TypeScript
-- **UI Library**: shadcn/ui (with Radix UI)
-- **Styling**: Tailwind CSS 4
-- **Form Handling**: React Hook Form
-- **State Management**: (To be determined)
-- **Charts**: Recharts 2.15.4
-- **Icons**: Lucide React
-- **Notifications**: Sonner
-- **Code Quality**: Biome (linting & formatting)
-- **Key Dependencies**:
-  - React 19.1.0
-  - React DOM 19.1.0
-  - Zod (validation)
-  - Next Themes (dark mode)
-  - React Resizable Panels
-  - Embla Carousel
+### Full Stack (Monorepo)
+- **Framework**: Next.js 15.5.4
+- **Language**: TypeScript 5
+- **Runtime**: Node.js
+- **Build Tool**: Turbopack
+- **Database**: PostgreSQL (Neon)
+- **ORM**: Prisma 6.16.3
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Shadcn UI
+- **Linting/Formatting**: Biome 2.2.0
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js v18.18 or higher
+- Node.js (v20 or higher)
 - npm or yarn
+- PostgreSQL database (or Neon account)
 
 ### Installation
 
-#### Frontend Setup
+1. **Clone the repository**
 ```bash
-cd frontend
+git clone <repository-url>
+cd N8NCLONE
+```
+
+2. **Install dependencies**
+```bash
 npm install
 ```
 
-#### Backend Setup
+3. **Set up environment variables**
 ```bash
-cd backend
-npm install
+# Create .env file
+DATABASE_URL="postgresql://user:password@host:5432/database"
+```
+
+4. **Set up database**
+```bash
+# Push schema to database
+npx prisma db push
+
+# Generate Prisma Client
+npx prisma generate
+
+# (Optional) Open Prisma Studio
+npx prisma studio
 ```
 
 ### Running the Application
 
-#### Start Frontend (Development)
 ```bash
-cd frontend
+# Development mode
 npm run dev
-# Application will be available at http://localhost:3000
-```
 
-#### Start Frontend (Production Build)
-```bash
-cd frontend
+# Build for production
 npm run build
+
+# Start production server
 npm start
 ```
 
-#### Start Backend
-```bash
-cd backend
-npm run dev
-# or for production
-npm start
+The application will be available at `http://localhost:3000`
+
+## Database Schema
+
+### User Model
+```prisma
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 ```
 
-### Code Quality
-
-#### Frontend Linting & Formatting
-```bash
-cd frontend
-npm run lint          # Check code style
-npm run format        # Auto-format code
+### Post Model
+```prisma
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  authorId  String
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 ```
+
+## Available Scripts
+
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run Biome linter
+- `npm run format` - Format code with Biome
+
+## Prisma Commands
+
+- `npx prisma studio` - Open Prisma Studio
+- `npx prisma generate` - Generate Prisma Client
+- `npx prisma db push` - Push schema to database
+- `npx prisma migrate dev` - Create and apply migrations
+- `npx prisma migrate reset` - Reset database
 
 ## Project Features
 
-- Visual workflow builder
-- Node-based automation
-- Workflow execution and monitoring
-- (Add more features as implemented)
+- Visual workflow builder (Coming soon)
+- Node-based automation (Coming soon)
+- Workflow execution and monitoring (Coming soon)
+- Database integration with Prisma ✅
+- Type-safe API layer ✅
 
-## Setup Completed ✅
+## Development Workflow
 
-- [x] Environment setup - Node.js v18.18+
-- [x] Next.js application with Turbopack
-- [x] shadcn/ui component library
-- [x] GitHub repository initialized
-- [ ] Backend API setup
-- [ ] Database configuration
-- [ ] Authentication system
-- [ ] Workflow engine
-- [ ] WebSocket for real-time updates
-
-## Development
-
-Add development guidelines, scripts, and conventions here.
+1. Create a new branch for each chapter/feature
+2. Make changes and test locally
+3. Create a Pull Request
+4. Review and merge to main
 
 ## Contributing
 
@@ -128,6 +172,5 @@ Specify your project license.
 
 ---
 
-**Last Updated**: February 22, 2026 - Setup Phase Complete
-**Status**: In Development
-**Note**: This README will be updated as the project evolves.
+**Last Updated**: February 22, 2026  
+**Current Chapter**: Chapter 2 - Database and ORM ✅
