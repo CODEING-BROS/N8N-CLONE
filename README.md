@@ -20,19 +20,43 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Test Prisma API integration
 - [x] Database migrations and seeding
 
+### Chapter 3: tRPC Setup ✅
+- [x] Set up tRPC v11
+- [x] Create procedures with Prisma API
+- [x] Explore tRPC server-side (prefetch, context)
+- [x] Explore tRPC client-side (hooks, provider)
+- [x] Explore server + client with prefetch (hydration)
+- [x] Production-ready configuration
+
 ## Project Structure
 
 ```
 N8NCLONE/
 ├── prisma/
-│   └── schema.prisma      # Database schema
+│   └── schema.prisma           # Database schema
 ├── src/
-│   ├── app/               # Next.js app directory
-│   ├── components/        # React components
-│   │   └── ui/           # Shadcn UI components
-│   ├── lib/              # Utility functions and db client
-│   └── hooks/            # Custom React hooks
-├── public/               # Static assets
+│   ├── app/                    # Next.js app directory
+│   │   ├── page.tsx           # Server-side prefetch demo
+│   │   ├── client.tsx         # Client component
+│   │   ├── layout.tsx         # Root layout with providers
+│   │   ├── globals.css        # Global styles
+│   │   └── api/
+│   │       └── trpc/          # tRPC API route handler
+│   ├── components/            # React components
+│   │   └── ui/               # Shadcn UI components
+│   ├── lib/                   # Utility functions and clients
+│   │   ├── db.ts            # Prisma client
+│   │   ├── auth.ts          # Auth helpers
+│   │   └── password.ts      # Password utilities
+│   ├── trpc/                  # tRPC setup
+│   │   ├── init.ts           # tRPC initialization
+│   │   ├── server.tsx        # Server-only proxy
+│   │   ├── client.tsx        # Client provider
+│   │   ├── query-client.ts   # React Query config
+│   │   └── routers/
+│   │       └── _app.ts       # API procedures
+│   └── hooks/                 # Custom React hooks
+├── public/                    # Static assets
 └── package.json
 ```
 
@@ -44,9 +68,13 @@ N8NCLONE/
 - **Runtime**: Node.js
 - **Build Tool**: Turbopack
 - **Database**: PostgreSQL (Neon)
-- **ORM**: Prisma 6.16.3
+- **ORM**: Prisma 6.19.2
+- **API Layer**: tRPC v11
+- **Query Caching**: TanStack React Query
 - **Styling**: Tailwind CSS v4
 - **UI Components**: Shadcn UI
+- **Validation**: Zod
+- **Security**: bcrypt for password hashing
 - **Linting/Formatting**: Biome 2.2.0
 
 ## Getting Started
