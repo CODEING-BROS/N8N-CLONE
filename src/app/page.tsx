@@ -17,6 +17,9 @@ const Page =  () => {
     {
       onSuccess: () => {
         toast.success("AI execution triggered!");
+      },
+      onError: (error) => {
+        toast.error("AI execution failed: " + error.message);
       }
     }
   ));

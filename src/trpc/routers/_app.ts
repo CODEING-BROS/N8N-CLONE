@@ -4,6 +4,7 @@ import prisma from '@/lib/db';
 import { inngest } from '@/inngest/client';
 import { google } from '@ai-sdk/google';
 import { generateText} from 'ai';
+import { TRPCError } from '@trpc/server';
 
 export const appRouter = createTRPCRouter({
   
@@ -20,6 +21,8 @@ export const appRouter = createTRPCRouter({
 
 
   testAi: protectedProcedure.mutation( async () => {
+    throw new TRPCError({ code: 'NOT_IMPLEMENTED', message: 'This endpoint is not implemented yet.' });
+    
     await inngest.send({
       name: "execute/ai",
     });
