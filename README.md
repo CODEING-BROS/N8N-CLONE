@@ -28,6 +28,17 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Explore server + client with prefetch (hydration)
 - [x] Production-ready configuration
 
+### Chapter 4: Authentication ✅
+- [x] Set up BetterAuth v1.3.26
+- [x] Add login/register UI
+- [x] Add auth utilities
+- [x] Protect procedures with sessions
+
+### Chapter 5: Theme & Styling ✅
+- [x] Apply new theme
+- [x] Improve auth screens
+- [x] Add logos
+
 ## Project Structure
 
 ```
@@ -135,27 +146,72 @@ The application will be available at `http://localhost:3000`
 ### User Model
 ```prisma
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String
-  password  String
-  posts     Post[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
 }
 ```
 
-### Post Model
+### Session Model
 ```prisma
-model Post {
-  id        String   @id @default(uuid())
-  title     String
-  content   String
-  authorId  String
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+```
+
+### Account Model
+```prisma
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+```
+
+### Verification Model
+```prisma
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
 }
 ```
 
@@ -199,6 +255,11 @@ Comprehensive visual guides and sequence diagrams for understanding the architec
   - BetterAuth setup with Prisma adapter
   - Auth UI flows (login/register)
   - Session validation and protected procedure flow
+
+- **[Chapter 5 Technical Summary](CHAPTER_5_SUMMARY.md)** - Theme & styling deep-dive
+  - Visual theme tokens and global styles
+  - Auth screen styling upgrades
+  - Logo placement and branding
 
 ## 🔄 Key Architecture Diagrams
 
@@ -513,17 +574,26 @@ sequenceDiagram
 
 ---
 
+### Chapter 5 - Theme & Styling Summary
+
+**What changed:**
+- New global theme and typography tokens
+- Auth screens refreshed for layout, spacing, and visual hierarchy
+- Logos added to reinforce branding
+
+---
+
 ## Architecture Comparison
 
-| Aspect | Chapter 2 | Chapter 3 |
-|--------|-----------|----------|
-| **Type Safety** | Partial (Prisma → API) | End-to-end (DB → Client) |
-| **API Definition** | Manual routes | tRPC routers |
-| **Client Queries** | fetch() + types | useQuery hooks |
-| **Data Format** | JSON | superjson (Dates, BigInt) |
-| **Caching** | Manual | React Query built-in |
-| **Server Data** | Separate calls | Prefetch + hydrate |
-| **Context Sharing** | Per-route | Middleware + cache |
+| Aspect | Chapter 2 | Chapter 3 | Chapter 4 | Chapter 5 |
+|--------|-----------|----------|-----------|-----------|
+| **Type Safety** | Partial (Prisma → API) | End-to-end (DB → Client) | End-to-end (Auth + API) | UI only |
+| **API Definition** | Manual routes | tRPC routers | BetterAuth + tRPC | N/A |
+| **Client Queries** | fetch() + types | useQuery hooks | authClient + hooks | N/A |
+| **Data Format** | JSON | superjson (Dates, BigInt) | Session tokens | N/A |
+| **Caching** | Manual | React Query built-in | Session-based | N/A |
+| **Server Data** | Separate calls | Prefetch + hydrate | Session validation | N/A |
+| **Context Sharing** | Per-route | Middleware + cache | protectedProcedure | N/A |
 
 For detailed explanations of these flows, see [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md) and [ARCHITECTURE_REFERENCE.md](ARCHITECTURE_REFERENCE.md).
 
@@ -560,5 +630,5 @@ Specify your project license.
 
 ---
 
-**Last Updated**: February 22, 2026  
-**Current Chapter**: Chapter 2 - Database and ORM ✅
+**Last Updated**: February 23, 2026  
+**Current Chapter**: Chapter 5 - Theme & Styling ✅
