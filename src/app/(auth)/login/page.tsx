@@ -4,10 +4,10 @@ import { requiredUauth } from "@/lib/auth-utils"
 
 const Page = async () => {
     await requiredUauth();
+
+
   return (
-    <div>
-        <LoginForm />
-    </div>
+    <LoginForm />
   )
 }
 

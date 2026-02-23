@@ -4,9 +4,7 @@ import { requiredUauth } from "@/lib/auth-utils"
 const Page = async () => {
   await requiredUauth();
   return (
-        <div>
-            <RegisterForm />
-        </div>
+        <RegisterForm />
     )
 }
 
