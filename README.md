@@ -195,6 +195,11 @@ Comprehensive visual guides and sequence diagrams for understanding the architec
   - Client-side prefetching and query patterns
   - Advanced patterns (caching, batching, context)
 
+- **[Chapter 4 Technical Summary](CHAPTER_4_SUMMARY.md)** - Authentication deep-dive
+  - BetterAuth setup with Prisma adapter
+  - Auth UI flows (login/register)
+  - Session validation and protected procedure flow
+
 ## 🔄 Key Architecture Diagrams
 
 ### Chapter 2 - User Creation Flow (Database & ORM)
@@ -370,6 +375,141 @@ sequenceDiagram
 - Session verified once, used everywhere
 - Type-safe within procedures
 - Prisma context available to all handlers
+
+---
+
+### Chapter 4 - Authentication Flows (BetterAuth)
+
+```mermaid
+sequenceDiagram
+  participant User as User/Browser
+  participant Register as Register Form
+  participant Client as Auth Client
+  participant API as /api/auth
+  participant Auth as BetterAuth
+  participant DB as PostgreSQL
+
+  User->>Register: Submit email + password
+  Register->>Client: authClient.signUp.email()
+  Client->>API: POST /api/auth/*
+  API->>Auth: Validate + create account
+  Auth->>DB: Insert user + account
+  DB-->>Auth: User created
+  Auth-->>API: Success response
+  API-->>Client: Return session/user
+  Client-->>Register: Redirect or success UI
+```
+
+**Sign Up Flow:**
+- Client form calls `authClient.signUp.email`
+- BetterAuth creates the user in the database
+- Session is created and returned
+
+---
+
+```mermaid
+sequenceDiagram
+  participant User as User/Browser
+  participant Login as Login Form
+  participant Client as Auth Client
+  participant API as /api/auth
+  participant Auth as BetterAuth
+  participant DB as PostgreSQL
+
+  User->>Login: Submit email + password
+  Login->>Client: authClient.signIn.email()
+  Client->>API: POST /api/auth/*
+  API->>Auth: Validate credentials
+  Auth->>DB: Find user + verify password
+  alt Valid credentials
+    DB-->>Auth: User found
+    Auth-->>API: Success response
+    API-->>Client: Session token
+    Client-->>Login: Redirect or success UI
+  else Invalid credentials
+    DB-->>Auth: Not found or mismatch
+    Auth-->>API: Error response
+    API-->>Client: Show error message
+  end
+```
+
+**Sign In Flow:**
+- BetterAuth validates credentials
+- Returns a session on success
+
+---
+
+```mermaid
+sequenceDiagram
+  participant Request as Request
+  participant tRPC as tRPC Router
+  participant Protected as protectedProcedure
+  participant Auth as BetterAuth
+  participant DB as PostgreSQL
+
+  Request->>tRPC: Call protected procedure
+  tRPC->>Protected: Execute middleware
+  Protected->>Auth: auth.api.getSession(headers)
+  Auth->>DB: Validate session token
+  alt Session valid
+    DB-->>Auth: Session + user
+    Auth-->>Protected: Session
+    Protected-->>tRPC: Continue with ctx.auth
+    tRPC-->>Request: Procedure response
+  else Session missing
+    DB-->>Auth: No session
+    Auth-->>Protected: null
+    Protected-->>tRPC: UNAUTHORIZED error
+    tRPC-->>Request: Error response
+  end
+```
+
+**Protected Procedure Flow:**
+- `protectedProcedure` checks session via BetterAuth
+- Request is rejected if not authenticated
+
+---
+
+```mermaid
+sequenceDiagram
+  participant User as User/Browser
+  participant Login as /login page
+  participant Register as /register page
+  participant Client as Auth Client
+
+  User->>Login: Open /login
+  Login-->>User: Show login form
+  User->>Register: Click "Sign Up"
+  Register-->>User: Show register form
+  User->>Register: Submit registration
+  Register->>Client: signUp.email()
+  Client-->>Register: Success
+  Register-->>User: Redirect to app
+```
+
+**Auth UI Navigation:**
+- Login page links to register
+- Register flow redirects on success
+
+---
+
+```mermaid
+sequenceDiagram
+  participant Client as Auth Client
+  participant API as /api/auth/session
+  participant Auth as BetterAuth
+  participant DB as PostgreSQL
+
+  Client->>API: GET session
+  API->>Auth: Validate token
+  Auth->>DB: Fetch session + user
+  DB-->>Auth: Session data
+  Auth-->>API: Session response
+  API-->>Client: { session, user }
+```
+
+**Session Validation:**
+- Used by client to check login state
 
 ---
 
