@@ -34,6 +34,11 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Add auth utilities
 - [x] Protect procedures with sessions
 
+### Chapter 5: Theme & Styling ✅
+- [x] Apply new theme
+- [x] Improve auth screens
+- [x] Add logos
+
 ## Project Structure
 
 ```
@@ -250,6 +255,11 @@ Comprehensive visual guides and sequence diagrams for understanding the architec
   - BetterAuth setup with Prisma adapter
   - Auth UI flows (login/register)
   - Session validation and protected procedure flow
+
+- **[Chapter 5 Technical Summary](CHAPTER_5_SUMMARY.md)** - Theme & styling deep-dive
+  - Visual theme tokens and global styles
+  - Auth screen styling upgrades
+  - Logo placement and branding
 
 ## 🔄 Key Architecture Diagrams
 
@@ -564,17 +574,26 @@ sequenceDiagram
 
 ---
 
+### Chapter 5 - Theme & Styling Summary
+
+**What changed:**
+- New global theme and typography tokens
+- Auth screens refreshed for layout, spacing, and visual hierarchy
+- Logos added to reinforce branding
+
+---
+
 ## Architecture Comparison
 
-| Aspect | Chapter 2 | Chapter 3 | Chapter 4 |
-|--------|-----------|----------|-----------|
-| **Type Safety** | Partial (Prisma → API) | End-to-end (DB → Client) | End-to-end (Auth + API) |
-| **API Definition** | Manual routes | tRPC routers | BetterAuth + tRPC |
-| **Client Queries** | fetch() + types | useQuery hooks | authClient + hooks |
-| **Data Format** | JSON | superjson (Dates, BigInt) | Session tokens |
-| **Caching** | Manual | React Query built-in | Session-based |
-| **Server Data** | Separate calls | Prefetch + hydrate | Session validation |
-| **Context Sharing** | Per-route | Middleware + cache | protectedProcedure |
+| Aspect | Chapter 2 | Chapter 3 | Chapter 4 | Chapter 5 |
+|--------|-----------|----------|-----------|-----------|
+| **Type Safety** | Partial (Prisma → API) | End-to-end (DB → Client) | End-to-end (Auth + API) | UI only |
+| **API Definition** | Manual routes | tRPC routers | BetterAuth + tRPC | N/A |
+| **Client Queries** | fetch() + types | useQuery hooks | authClient + hooks | N/A |
+| **Data Format** | JSON | superjson (Dates, BigInt) | Session tokens | N/A |
+| **Caching** | Manual | React Query built-in | Session-based | N/A |
+| **Server Data** | Separate calls | Prefetch + hydrate | Session validation | N/A |
+| **Context Sharing** | Per-route | Middleware + cache | protectedProcedure | N/A |
 
 For detailed explanations of these flows, see [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md) and [ARCHITECTURE_REFERENCE.md](ARCHITECTURE_REFERENCE.md).
 
@@ -612,4 +631,4 @@ Specify your project license.
 ---
 
 **Last Updated**: February 23, 2026  
-**Current Chapter**: Chapter 4 - Authentication ✅
+**Current Chapter**: Chapter 5 - Theme & Styling ✅
