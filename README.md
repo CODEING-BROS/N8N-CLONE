@@ -39,6 +39,23 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Improve auth screens
 - [x] Add logos
 
+### Chapter 6: Background Jobs ✓
+- [x] Setup Inngest
+- [x] Create a background job
+- [x] Add mprocs for parallel dev
+- [x] Branch and PR created
+- [x] Review & merge
+
+#### Background Job Example
+- Inngest function created in `src/inngest/functions.ts`
+- Runs in parallel with Next.js using `mprocs`
+- See `package.json` for dev script
+
+#### GitHub Workflow
+- Branch created for background jobs
+- PR submitted for review
+- Merge after approval
+
 ## Project Structure
 
 ```
@@ -260,6 +277,13 @@ Comprehensive visual guides and sequence diagrams for understanding the architec
   - Visual theme tokens and global styles
   - Auth screen styling upgrades
   - Logo placement and branding
+
+- **[Chapter 6 Technical Summary](CHAPTER_6_SUMMARY.md)** - Background Jobs
+  - Inngest setup and configuration
+  - Background job creation and execution
+  - Parallel development with mprocs
+  - Branch and PR creation
+  - Review and merge
 
 ## 🔄 Key Architecture Diagrams
 
@@ -583,6 +607,14 @@ sequenceDiagram
 
 ---
 
+### Chapter 6 - Background Jobs
+
+- Inngest setup and configuration
+- Background job creation and execution
+- Parallel development with mprocs
+- Branch and PR creation
+- Review and merge
+
 ## Architecture Comparison
 
 | Aspect | Chapter 2 | Chapter 3 | Chapter 4 | Chapter 5 |
@@ -631,4 +663,4 @@ Specify your project license.
 ---
 
 **Last Updated**: February 23, 2026  
-**Current Chapter**: Chapter 5 - Theme & Styling ✅
+**Current Chapter**: Chapter 6 - Background Jobs ✓
