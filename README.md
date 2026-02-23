@@ -662,5 +662,24 @@ Specify your project license.
 
 ---
 
+
+### Chapter 7 - AI Providers
+
+- Choose your AI model(s):
+  - Gemini (Free)
+  - OpenAI (min. $5)
+  - Anthropic (min. $5)
+  - ...
+- Setup AI SDK
+- Use AI SDK with Inngest
+
+#### GitHub Workflow
+- Push to GitHub
+- Create a new branch
+- Create a new PR
+- Review & merge
+
+---
+
 **Last Updated**: February 23, 2026  
-**Current Chapter**: Chapter 6 - Background Jobs ✓
+**Current Chapter**: Chapter 7 - AI Providers ✓
