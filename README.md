@@ -704,4 +704,36 @@ sequenceDiagram
 ---
 
 **Last Updated**: February 23, 2026  
-**Current Chapter**: Chapter 7 - AI Providers ✓
+
+### Chapter 8: Error Tracking ✅
+- [x] Setup Sentry for error tracking
+- [x] Demonstrate session replays
+- [x] Demonstrate logs
+- [x] Demonstrate AI monitoring
+- [x] Branch and PR created
+- [x] Review & merge
+
+#### Error Tracking Integration Example
+- Sentry is integrated for real-time error monitoring
+- Session replays capture user interactions for debugging
+- Logs and traces are sent to Sentry for analysis
+- AI monitoring tracks model errors and latency
+
+#### Sequence Diagram: Error Tracking Workflow
+```mermaid
+sequenceDiagram
+  participant User as User/Frontend
+  participant App as App/Next.js
+  participant Sentry as Sentry SDK
+  participant Dashboard as Sentry Dashboard
+
+  User->>App: Interacts with app (triggers error)
+  App->>Sentry: Capture error/log/session replay
+  Sentry-->>Dashboard: Send error data
+  Dashboard-->>App: Error insights, alerts
+```
+
+---
+
+**Last Updated**: February 23, 2026  
+**Current Chapter**: Chapter 8 - Error Tracking ✓
