@@ -1,10 +1,22 @@
-import { requiredAuth } from "@/lib/auth-utils"
+"use client";
+// import { requiredAuth } from "@/lib/auth-utils"
 import { caller } from "@/trpc/server";
 import { LogoutButton } from "./logout";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useTRPC } from "@/trpc/client";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
-const Page = async () => {
-  await requiredAuth();
-  const data = await caller.getUsers();
+const Page =  () => {
+  // await requiredAuth();
+  // const data = await caller.getUsers();
+  const trpc = useTRPC();
+  const {data} = useQuery(trpc.getWorkflows.queryOptions());
+  const create = useMutation(trpc.createWorkflow.mutationOptions({
+    onSuccess: () => {
+      toast.success("Workflow creation triggered!");
+    }
+  }));
 
   return (
     <div className={'text-red-500 flex flex-col items-center justify-center'}>
@@ -14,7 +26,12 @@ const Page = async () => {
         {JSON.stringify(data, null, 2)}
       </pre>
 
-      <LogoutButton />
+      {/* <LogoutButton /> */}
+
+      <Button onClick={() => create.mutate()} className={'bg-blue-500 text-white px-4 py-2 rounded'}>
+        Create Workflow
+      </Button>
+
     </div>
   )
 }
