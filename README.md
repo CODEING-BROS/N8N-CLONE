@@ -28,6 +28,12 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Explore server + client with prefetch (hydration)
 - [x] Production-ready configuration
 
+### Chapter 4: Authentication ✅
+- [x] Set up BetterAuth v1.3.26
+- [x] Add login/register UI
+- [x] Add auth utilities
+- [x] Protect procedures with sessions
+
 ## Project Structure
 
 ```
@@ -135,27 +141,72 @@ The application will be available at `http://localhost:3000`
 ### User Model
 ```prisma
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String
-  password  String
-  posts     Post[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
 }
 ```
 
-### Post Model
+### Session Model
 ```prisma
-model Post {
-  id        String   @id @default(uuid())
-  title     String
-  content   String
-  authorId  String
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+```
+
+### Account Model
+```prisma
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+```
+
+### Verification Model
+```prisma
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
 }
 ```
 
@@ -515,15 +566,15 @@ sequenceDiagram
 
 ## Architecture Comparison
 
-| Aspect | Chapter 2 | Chapter 3 |
-|--------|-----------|----------|
-| **Type Safety** | Partial (Prisma → API) | End-to-end (DB → Client) |
-| **API Definition** | Manual routes | tRPC routers |
-| **Client Queries** | fetch() + types | useQuery hooks |
-| **Data Format** | JSON | superjson (Dates, BigInt) |
-| **Caching** | Manual | React Query built-in |
-| **Server Data** | Separate calls | Prefetch + hydrate |
-| **Context Sharing** | Per-route | Middleware + cache |
+| Aspect | Chapter 2 | Chapter 3 | Chapter 4 |
+|--------|-----------|----------|-----------|
+| **Type Safety** | Partial (Prisma → API) | End-to-end (DB → Client) | End-to-end (Auth + API) |
+| **API Definition** | Manual routes | tRPC routers | BetterAuth + tRPC |
+| **Client Queries** | fetch() + types | useQuery hooks | authClient + hooks |
+| **Data Format** | JSON | superjson (Dates, BigInt) | Session tokens |
+| **Caching** | Manual | React Query built-in | Session-based |
+| **Server Data** | Separate calls | Prefetch + hydrate | Session validation |
+| **Context Sharing** | Per-route | Middleware + cache | protectedProcedure |
 
 For detailed explanations of these flows, see [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md) and [ARCHITECTURE_REFERENCE.md](ARCHITECTURE_REFERENCE.md).
 
@@ -560,5 +611,5 @@ Specify your project license.
 
 ---
 
-**Last Updated**: February 22, 2026  
-**Current Chapter**: Chapter 2 - Database and ORM ✅
+**Last Updated**: February 23, 2026  
+**Current Chapter**: Chapter 4 - Authentication ✅
