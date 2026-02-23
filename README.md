@@ -663,21 +663,40 @@ Specify your project license.
 ---
 
 
-### Chapter 7 - AI Providers
 
-- Choose your AI model(s):
-  - Gemini (Free)
-  - OpenAI (min. $5)
-  - Anthropic (min. $5)
-  - ...
-- Setup AI SDK
-- Use AI SDK with Inngest
+### Chapter 7: AI Providers ✅
+- [x] Choose AI model(s): Gemini, OpenAI, Anthropic, etc.
+- [x] Set up AI SDK(s) and environment variables
+- [x] Integrate AI SDK with Inngest background jobs
+- [x] Add provider selection logic
+- [x] Test AI workflow end-to-end
+- [x] Branch and PR created
+- [x] Review & merge
 
-#### GitHub Workflow
-- Push to GitHub
-- Create a new branch
-- Create a new PR
-- Review & merge
+#### AI Provider Integration Example
+- Users can select from multiple AI providers (Gemini, OpenAI, Anthropic)
+- SDKs are initialized based on provider selection
+- Inngest background jobs use the selected AI model to process tasks
+- Provider and API key are managed via environment variables
+
+#### Sequence Diagram: AI Provider Workflow
+```mermaid
+sequenceDiagram
+    participant User as User/Frontend
+    participant API as API Route
+    participant Inngest as Inngest Function
+    participant Provider as AI Provider SDK
+    participant Model as AI Model (Gemini/OpenAI/Anthropic)
+
+    User->>API: Submit workflow with provider/model choice
+    API->>Inngest: Trigger background job (provider, input)
+    Inngest->>Provider: Initialize SDK (env vars)
+    Provider->>Model: Send prompt/input
+    Model-->>Provider: AI response
+    Provider-->>Inngest: Return result
+    Inngest-->>API: Job complete (result)
+    API-->>User: Show AI output
+```
 
 ---
 

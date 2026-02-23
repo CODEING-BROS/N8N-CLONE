@@ -841,6 +841,66 @@ Results returned with types
 - **Chapter 7**: Caching Strategy (Redis, varnish, CDN)
 - **Chapter 8**: Rate Limiting (Middleware, buckets)
 
+### Chapter 7: AI Providers
+
+#### AI Provider Workflow
+```
+┌─────────────┐
+│   User      │
+│ /Frontend   │
+└─────┬───────┘
+        │ Submit workflow (provider/model)
+        ▼
+┌─────────────────┐
+│   API Route     │
+└─────┬───────────┘
+        │ Trigger Inngest job (provider, input)
+        ▼
+┌────────────────────┐
+│ Inngest Function   │
+└─────┬──────────────┘
+        │ Initialize AI SDK (env vars)
+        ▼
+┌────────────────────┐
+│ AI Provider SDK    │
+└─────┬──────────────┘
+        │ Send prompt/input
+        ▼
+┌────────────────────┐
+│ AI Model           │
+│ (Gemini/OpenAI/...)│
+└─────┬──────────────┘
+        │ AI response
+        ▼
+┌────────────────────┐
+│ AI Provider SDK    │
+└─────┬──────────────┘
+        │ Return result
+        ▼
+┌────────────────────┐
+│ Inngest Function   │
+└─────┬──────────────┘
+        │ Job complete (result)
+        ▼
+┌─────────────────┐
+│   API Route     │
+└─────┬───────────┘
+        │ Show AI output
+        ▼
+┌─────────────┐
+│   User      │
+└─────────────┘
+```
+
+**Key Points:**
+- User selects provider/model in the UI
+- API triggers Inngest background job with provider info
+- Inngest initializes the correct AI SDK using environment variables
+- AI SDK sends prompt to the selected model (Gemini, OpenAI, Anthropic, etc.)
+- Result is returned to the user after processing
+
+---
+
 ### Diagram Conventions
 - **Solid arrows (→)**: Synchronous calls
 - **Dashed arrows (⇢)**: Asynchronous/promise returns
