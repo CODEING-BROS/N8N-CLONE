@@ -2,7 +2,11 @@ import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '../init';
 import prisma from '@/lib/db';
 import { inngest } from '@/inngest/client';
+import { google } from '@ai-sdk/google';
+import { generateText} from 'ai';
+
 export const appRouter = createTRPCRouter({
+  
   // getUsers: protectedProcedure.query(({ctx}) => 
   //   {
   //     console.log({userId: ctx.auth.user.id});
@@ -13,6 +17,16 @@ export const appRouter = createTRPCRouter({
   //       },
   //     });
   //   }),
+
+
+  testAi: protectedProcedure.mutation( async () => {
+    await inngest.send({
+      name: "execute/ai",
+    });
+
+    return { success: true , message: "AI execution triggered!"};
+  }),
+
 
   getWorkflows: protectedProcedure.query(() => {
       return prisma.workflow.findMany({});

@@ -12,6 +12,15 @@ const Page =  () => {
   // const data = await caller.getUsers();
   const trpc = useTRPC();
   const {data} = useQuery(trpc.getWorkflows.queryOptions());
+
+  const testAi = useMutation(trpc.testAi.mutationOptions(
+    {
+      onSuccess: () => {
+        toast.success("AI execution triggered!");
+      }
+    }
+  ));
+
   const create = useMutation(trpc.createWorkflow.mutationOptions({
     onSuccess: () => {
       toast.success("Workflow creation triggered!");
@@ -30,6 +39,10 @@ const Page =  () => {
 
       <Button onClick={() => create.mutate()} className={'bg-blue-500 text-white px-4 py-2 rounded'}>
         Create Workflow
+      </Button>
+
+      <Button disabled={testAi.isPending} onClick={() => testAi.mutate()} className={'bg-green-500 text-white px-4 py-2 rounded'}>
+        Test AI
       </Button>
 
     </div>
