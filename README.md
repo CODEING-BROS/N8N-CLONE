@@ -2,6 +2,7 @@
 
 A workflow automation platform inspired by n8n. This project enables users to create, manage, and execute complex automation workflows with a visual interface.
 
+
 ## 📚 Development Progress
 
 ### Chapter 1: Project Setup ✅
@@ -39,7 +40,14 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Improve auth screens
 - [x] Add logos
 
+### Chapter 6: Background Jobs ✅
+- [x] Setup Inngest
+- [x] Create a background job
+- [x] Add mprocs for parallel dev
+- [x] Branch and PR created
+- [x] Review & merge
 
+### Chapter 7: AI Providers ✅
 - [x] Choose AI model(s): Gemini, OpenAI, Anthropic, etc.
 - [x] Set up AI SDK(s) and environment variables
 - [x] Integrate AI SDK with Inngest background jobs
@@ -53,13 +61,6 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Demonstrate session replays
 - [x] Demonstrate logs
 - [x] Demonstrate AI monitoring
-- [x] Branch and PR created
-- [x] Review & merge
-- [x] Choose AI model(s): Gemini, OpenAI, Anthropic, etc.
-- [x] Set up AI SDK(s) and environment variables
-- [x] Integrate AI SDK with Inngest background jobs
-- [x] Add provider selection logic
-- [x] Test AI workflow end-to-end
 - [x] Branch and PR created
 - [x] Review & merge
 
