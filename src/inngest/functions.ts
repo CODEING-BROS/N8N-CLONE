@@ -1,6 +1,6 @@
 import { inngest } from "./client";
 import prisma from "@/lib/db";
-
+import * as Sentry from "@sentry/edge";
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { generateText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
@@ -17,12 +17,19 @@ export const execute = inngest.createFunction(
   async ({ event, step }) => {
 
     await step.sleep("pretend-we-are-doing-something-expensive", 5000);
+    console.warn("Something went wrong, but we caught it!"); // This will be captured by Sentry as a warning
+    console.log("this is error log i made");
 
     const { steps : geminiSteps } = await step.ai.wrap("gemini-generate-text", 
       generateText, {
         system: "You are a helpful assistant for generating text.",
         model: google('gemini-2.5-flash'),
         prompt: 'What is 2 + 2?',
+        experimental_telemetry: {
+          isEnabled: true,
+          recordInputs: true,
+          recordOutputs: true,
+        },
       }
     );
 
@@ -31,6 +38,11 @@ export const execute = inngest.createFunction(
         system: "You are a helpful assistant for generating text.",
         model: openai('gpt-4'),
         prompt: 'What is 2 + 2?',
+        experimental_telemetry: {
+          isEnabled: true,
+          recordInputs: true,
+          recordOutputs: true,
+        },
       }
     );
 
@@ -39,6 +51,11 @@ export const execute = inngest.createFunction(
         system: "You are a helpful assistant for generating text.",
         model: anthropic('claude-sonnet-4-5'),
         prompt: 'What is 2 + 2?',
+        experimental_telemetry: {
+          isEnabled: true,
+          recordInputs: true,
+          recordOutputs: true,
+        },
       }
     );
 
