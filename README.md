@@ -51,8 +51,6 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Branch and PR created
 - [x] Review & merge
 
-### Chapter 7: AI Providers ✅
-
 ### Chapter 8: Error Tracking ✅
 - [x] Setup Sentry for error tracking
 - [x] Demonstrate session replays
@@ -60,8 +58,6 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Demonstrate AI monitoring
 - [x] Branch and PR created
 - [x] Review & merge
-
-### Chapter 8: Error Tracking ✅
 
 ### Chapter 9: Sidebar Layout ✅
 - [x] Improve file structure
@@ -759,6 +755,9 @@ sequenceDiagram
 
 **Last Updated**: February 23, 2026  
 **Current Chapter**: Chapter 8 - Error Tracking ✓
+
+**Last Updated**: February 24, 2026  
+**Current Chapter**: Chapter 9 - Sidebar Layout ✓
 
 ### Chapter 9: Sidebar Layout ✅
 - [x] Improve file structure
