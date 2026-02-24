@@ -57,10 +57,12 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Review & merge
 
 ### Chapter 8: Error Tracking ✅
-- [x] Setup Sentry for error tracking
-- [x] Demonstrate session replays
-- [x] Demonstrate logs
-- [x] Demonstrate AI monitoring
+
+### Chapter 9: Sidebar Layout ✅
+- [x] Improve file structure
+- [x] Create placeholder routes
+- [x] Create sidebar layout
+- [x] Update README and documentation
 - [x] Branch and PR created
 - [x] Review & merge
 
@@ -752,14 +754,6 @@ sequenceDiagram
 
 **Last Updated**: February 23, 2026  
 **Current Chapter**: Chapter 8 - Error Tracking ✓
-
-### Chapter 9: Sidebar Layout ✅
-- [x] Improve file structure
-- [x] Create placeholder routes
-- [x] Create sidebar layout
-- [x] Update README and documentation
-- [x] Branch and PR created
-- [x] Review & merge
 
 #### Sidebar Layout Example
 - Sidebar layout provides consistent navigation
