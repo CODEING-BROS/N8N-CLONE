@@ -6,44 +6,14 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 ## 📚 Development Progress
 
 ### Chapter 1: Project Setup ✅
-- [x] Initialize Next.js 15.5.4 with Turbopack
-- [x] Set up TypeScript configuration
-- [x] Configure Biome for linting and formatting
-- [x] Install and configure Tailwind CSS v4
-- [x] Set up Shadcn UI component library
-- [x] Project structure organization
 
 ### Chapter 2: Database and ORM ✅
-- [x] Set up Prisma ORM (v6.16.3)
-- [x] Configure PostgreSQL database (Neon)
-- [x] Create database schema (User & Post models)
-- [x] Explore Prisma Studio
-- [x] Test Prisma API integration
 - [x] Database migrations and seeding
 
-### Chapter 3: tRPC Setup ✅
-- [x] Set up tRPC v11
-- [x] Create procedures with Prisma API
-- [x] Explore tRPC server-side (prefetch, context)
-- [x] Explore tRPC client-side (hooks, provider)
-- [x] Explore server + client with prefetch (hydration)
-- [x] Production-ready configuration
 
 ### Chapter 4: Authentication ✅
-- [x] Set up BetterAuth v1.3.26
-- [x] Add login/register UI
-- [x] Add auth utilities
-- [x] Protect procedures with sessions
-
-### Chapter 5: Theme & Styling ✅
 
 
-- [x] Integrate AI SDK with Inngest background jobs
-- [x] Demonstrate session replays
-- [x] Demonstrate logs
-- [x] Demonstrate AI monitoring
-- [x] Branch and PR created
-- [x] Review & merge
 
 ### Chapter 9: Sidebar Layout ✅
 - [x] Improve file structure
