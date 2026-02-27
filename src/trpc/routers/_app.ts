@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createTRPCRouter, protectedProcedure } from '../init';
+import { createTRPCRouter, preniumProcedure, protectedProcedure } from '../init';
 import prisma from '@/lib/db';
 import { inngest } from '@/inngest/client';
 import { google } from '@ai-sdk/google';
@@ -20,7 +20,7 @@ export const appRouter = createTRPCRouter({
   //   }),
 
 
-  testAi: protectedProcedure.mutation( async () => {
+  testAi: preniumProcedure.mutation( async () => {
     throw new TRPCError({ code: 'NOT_IMPLEMENTED', message: 'This endpoint is not implemented yet.' });
     
     await inngest.send({
@@ -31,11 +31,11 @@ export const appRouter = createTRPCRouter({
   }),
 
 
-  getWorkflows: protectedProcedure.query(() => {
+  getWorkflows: preniumProcedure.query(() => {
       return prisma.workflow.findMany({});
     }),
 
-  createWorkflow: protectedProcedure.mutation( async () => {
+  createWorkflow: preniumProcedure.mutation( async () => {
       await inngest.send({
         name: "test/hello.world",
         data: {

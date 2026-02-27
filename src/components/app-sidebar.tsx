@@ -26,6 +26,7 @@ import {
 } from "./ui/sidebar";
 
 import { authClient } from "@/lib/auth-client";
+import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use_subscription";
 
 const menuItems = [
     {
@@ -54,6 +55,7 @@ const menuItems = [
 const AppSidebar = () => {
     const pathname = usePathname();
     const router = useRouter();
+    const { hasActiveSubscription , isLoading } = useHasActiveSubscription();
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader>
@@ -106,21 +108,26 @@ const AppSidebar = () => {
             
             <SidebarFooter>
                 <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton
-                         className="gap-x-4 h-10 px-4"
-                         tooltip="Upgrade to Pro"
-                         onClick={() => {}}
-                        >
-                            <StarIcon className="size-4"/>
-                            <span>Upgrade to Pro</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
+                    {
+                        !hasActiveSubscription && !isLoading 
+                        && (
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                className="gap-x-4 h-10 px-4"
+                                tooltip="Upgrade to Pro"
+                                onClick={() => {authClient.checkout({slug: "Nodebase-Pro"})}}
+                                >
+                                    <StarIcon className="size-4"/>
+                                    <span>Upgrade to Pro</span>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        )
+                    }
                     <SidebarMenuItem>
                         <SidebarMenuButton
                          className="gap-x-4 h-10 px-4"
                          tooltip="Billing Portal"
-                         onClick={() => {}}
+                         onClick={() => {authClient.customer.portal()}}
                         >
                             <CreditCardIcon className="size-4"/>
                             <span>Billing Portal</span>
