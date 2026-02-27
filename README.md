@@ -3,73 +3,6 @@
 
 A workflow automation platform inspired by n8n. Create, manage, and execute complex automation workflows with a visual interface.
 
----
-
-**Last Updated:** February 24, 2026
-
-## 🚀 Features
-- Visual workflow builder (Coming soon)
-- Node-based automation (Coming soon)
-- Workflow execution and monitoring (Coming soon)
-- Database integration with Prisma ✅
-- Type-safe API layer ✅
-- Authentication with BetterAuth ✅
-- AI provider integration (Gemini, OpenAI, Anthropic) ✅
-- Error tracking with Sentry ✅
-- Sidebar layout and navigation ✅
-
-## 📚 Development Progress
-
-| Chapter | Feature | Status |
-|---------|---------|--------|
-| 1 | Project Setup | ✅ |
-| 2 | Database & ORM | ✅ |
-| 3 | tRPC Setup | ✅ |
-| 4 | Authentication | ✅ |
-| 5 | Theme & Styling | ✅ |
-| 6 | Background Jobs | ✅ |
-| 7 | AI Providers | ✅ |
-| 8 | Error Tracking | ✅ |
-| 9 | Sidebar Layout | ✅ |
-| 10 | Payments | 🚧 |
----
-
-## 💳 Chapter 10: Payments
-
-Payment integration and workflow (in progress):
-- Integrate payment provider (Stripe, PayPal, etc.)
-- Add payment UI and checkout flow
-- Store payment and subscription data in database
-- Secure payment endpoints and webhooks
-- Test payment flows end-to-end
-
-See [CHAPTER_10_PAYMENTS.md](CHAPTER_10_PAYMENTS.md) for technical details and diagrams.
-
----
-
-
----
-
-## Project Structure
-
-```
-N8NCLONE/
-├── prisma/
-│   └── schema.prisma           # Database schema
-├── src/
-│   ├── app/                    # Next.js app directory
-│   │   ├── page.tsx           # Server-side prefetch demo
-│   │   ├── client.tsx         # Client component
-│   │   ├── layout.tsx         # Root layout with providers
-│   │   ├── globals.css        # Global styles
-│   │   └── api/
-│   │       └── trpc/          # tRPC API route handler
-│   ├── components/            # React components
-│   │   └── ui/               # Shadcn UI components
-│   ├── lib/                   # Utility functions and clients
-│   │   ├── db.ts            # Prisma client
-│   │   ├── auth.ts          # Auth helpers
-│   │   └── password.ts      # Password utilities
 │   ├── trpc/                  # tRPC setup
 │   │   ├── init.ts           # tRPC initialization
 │   │   ├── server.tsx        # Server-only proxy
@@ -636,6 +569,7 @@ sequenceDiagram
 **Last Updated**: February 24, 2026  
 **Current Chapter**: Chapter 9 - Sidebar Layout ✓
 
+
 ### Chapter 9: Sidebar Layout ✅
 - [x] Improve file structure
 - [x] Create placeholder routes
@@ -669,5 +603,38 @@ sequenceDiagram
 
 ---
 
+### Chapter 10: Payments 🚧
+- [ ] Integrate payment provider (Stripe, PayPal, etc.)
+- [ ] Add payment UI and checkout flow
+- [ ] Store payment and subscription data in database
+- [ ] Secure payment endpoints and webhooks
+- [ ] Test payment flows end-to-end
+
+#### Payments Example
+- Payment integration for subscriptions and workflow automation
+- Secure checkout and webhook handling
+
+#### Sequence Diagram: Payment Workflow
+```mermaid
+sequenceDiagram
+  participant User as User/Frontend
+  participant App as App/Next.js
+  participant PaymentUI as Payment UI
+  participant API as Payment API
+  participant Provider as Payment Provider (Stripe/PayPal)
+  participant DB as Database
+
+  User->>App: Initiates payment/subscription
+  App->>PaymentUI: Show checkout form
+  PaymentUI->>API: Submit payment details
+  API->>Provider: Process payment
+  Provider-->>API: Payment confirmation
+  API->>DB: Store payment/subscription
+  API-->>PaymentUI: Success/failure response
+  PaymentUI-->>User: Show result/redirect
+```
+
+---
+
 **Last Updated**: February 24, 2026  
-**Current Chapter**: Chapter 9 - Sidebar Layout ✓
+**Current Chapter**: Chapter 10 - Payments 🚧
