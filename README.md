@@ -1,7 +1,61 @@
+
+### Chapter 2: Database and ORM ✅
+- [x] Set up Prisma ORM (v6.16.3)
+- [x] Configure PostgreSQL database (Neon)
+- [x] Create database schema (User & Post models)
+- [x] Explore Prisma Studio
+- [x] Test Prisma API integration
+- [x] Database migrations and seeding
+#### Sequence Diagram: User Creation & Auth
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-2-database--orm)
+
+### Chapter 3: tRPC Setup ✅
+- [x] Set up tRPC v11
+- [x] Create procedures with Prisma API
+- [x] Explore tRPC server-side (prefetch, context)
+- [x] Explore tRPC client-side (hooks, provider)
+- [x] Explore server + client with prefetch (hydration)
+- [x] Production-ready configuration
+#### Sequence Diagram: Prefetch, Query, Context
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-3-trpc-setup)
+
+### Chapter 4: Authentication ✅
+- [x] Set up BetterAuth v1.3.26
+- [x] Add login/register UI
+- [x] Add auth utilities
+- [x] Protect procedures with sessions
+#### Sequence Diagram: Auth Flows
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-4-authentication-jwtsession-flow)
+
+### Chapter 5: Theme & Styling ✅
+- [x] Apply new theme
+- [x] Improve auth screens
+- [x] Add logos
+#### Sequence Diagram: N/A
+
+### Chapter 6: Background Jobs ✅
+- [x] Setup Inngest
+- [x] Create a background job
+- [x] Add mprocs for parallel dev
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: N/A
+
+### Chapter 7: AI Providers ✅
+- [x] Choose AI model(s): Gemini, OpenAI, Anthropic, etc.
+- [x] Set up AI SDK(s) and environment variables
+- [x] Integrate AI SDK with Inngest background jobs
+- [x] Add provider selection logic
+- [x] Test AI workflow end-to-end
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: AI Provider Workflow
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-7-ai-providers)
+
+
 # N8N Clone
 
 A workflow automation platform inspired by n8n. This project enables users to create, manage, and execute complex automation workflows with a visual interface.
-
 
 ## 📚 Development Progress
 
@@ -20,6 +74,8 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Explore Prisma Studio
 - [x] Test Prisma API integration
 - [x] Database migrations and seeding
+#### Sequence Diagram: User Creation & Auth
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-2-database--orm)
 
 ### Chapter 3: tRPC Setup ✅
 - [x] Set up tRPC v11
@@ -28,17 +84,22 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Explore tRPC client-side (hooks, provider)
 - [x] Explore server + client with prefetch (hydration)
 - [x] Production-ready configuration
+#### Sequence Diagram: Prefetch, Query, Context
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-3-trpc-setup)
 
 ### Chapter 4: Authentication ✅
 - [x] Set up BetterAuth v1.3.26
 - [x] Add login/register UI
 - [x] Add auth utilities
 - [x] Protect procedures with sessions
+#### Sequence Diagram: Auth Flows
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-4-authentication-jwtsession-flow)
 
 ### Chapter 5: Theme & Styling ✅
 - [x] Apply new theme
 - [x] Improve auth screens
 - [x] Add logos
+#### Sequence Diagram: N/A
 
 ### Chapter 6: Background Jobs ✅
 - [x] Setup Inngest
@@ -46,6 +107,7 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Add mprocs for parallel dev
 - [x] Branch and PR created
 - [x] Review & merge
+#### Sequence Diagram: N/A
 
 ### Chapter 7: AI Providers ✅
 - [x] Choose AI model(s): Gemini, OpenAI, Anthropic, etc.
@@ -55,6 +117,8 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Test AI workflow end-to-end
 - [x] Branch and PR created
 - [x] Review & merge
+#### Sequence Diagram: AI Provider Workflow
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-7-ai-providers)
 
 ### Chapter 8: Error Tracking ✅
 - [x] Setup Sentry for error tracking
@@ -63,6 +127,8 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Demonstrate AI monitoring
 - [x] Branch and PR created
 - [x] Review & merge
+#### Sequence Diagram: Error Tracking Workflow
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-8-rate-limiting-middleware-buckets)
 
 ### Chapter 9: Sidebar Layout ✅
 - [x] Improve file structure
@@ -71,55 +137,18 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Update README and documentation
 - [x] Branch and PR created
 - [x] Review & merge
+#### Sequence Diagram: Sidebar Layout
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-9-sidebar-layout)
 
-#### Background Job Example
-- Inngest function created in `src/inngest/functions.ts`
-- Runs in parallel with Next.js using `mprocs`
-- See `package.json` for dev script
-
-#### GitHub Workflow
-- Branch created for background jobs
-- PR submitted for review
-- Merge after approval
-
-## Project Structure
-
-```
-N8NCLONE/
-├── prisma/
-│   └── schema.prisma           # Database schema
-├── src/
-│   ├── app/                    # Next.js app directory
-│   │   ├── page.tsx           # Server-side prefetch demo
-│   │   ├── client.tsx         # Client component
-│   │   ├── layout.tsx         # Root layout with providers
-│   │   ├── globals.css        # Global styles
-│   │   └── api/
-│   │       └── trpc/          # tRPC API route handler
-│   ├── components/            # React components
-│   │   └── ui/               # Shadcn UI components
-│   ├── lib/                   # Utility functions and clients
-│   │   ├── db.ts            # Prisma client
-│   │   ├── auth.ts          # Auth helpers
-│   │   └── password.ts      # Password utilities
-│   ├── trpc/                  # tRPC setup
-│   │   ├── init.ts           # tRPC initialization
-│   │   ├── server.tsx        # Server-only proxy
-│   │   ├── client.tsx        # Client provider
-│   │   ├── query-client.ts   # React Query config
-│   │   └── routers/
-│   │       └── _app.ts       # API procedures
-│   └── hooks/                 # Custom React hooks
-├── public/                    # Static assets
-└── package.json
-```
-
-## Tech Stack
-
-### Full Stack (Monorepo)
-- **Framework**: Next.js 15.5.4
-- **Language**: TypeScript 5
-- **Runtime**: Node.js
+### Chapter 10: Payments ✅
+- [x] Setup Polar
+- [x] Integrate with Better Auth
+- [x] Create checkout
+- [x] Create billing portal
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: Payments Integration
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-10-payments)
 - **Build Tool**: Turbopack
 - **Database**: PostgreSQL (Neon)
 - **ORM**: Prisma 6.19.2
@@ -273,6 +302,7 @@ Comprehensive visual guides and sequence diagrams for understanding the architec
 - **[Sequence Diagrams](SEQUENCE_DIAGRAMS.md)** - Complete request/response flows for all chapters
   - Chapter 2: User creation, authentication, and Prisma data flows
   - Chapter 3: Server-side prefetching, client-side queries, and tRPC context
+  - Chapter 10: Payments integration, checkout, and billing portal
   - Timing diagrams and performance metrics
 
 - **[Architecture Reference Guide](ARCHITECTURE_REFERENCE.md)** - Visual architecture and component relationships
@@ -758,44 +788,6 @@ sequenceDiagram
 
 ---
 
-**Last Updated**: February 23, 2026  
-**Current Chapter**: Chapter 8 - Error Tracking ✓
 
-**Last Updated**: February 24, 2026  
-**Current Chapter**: Chapter 9 - Sidebar Layout ✓
-
-### Chapter 9: Sidebar Layout ✅
-- [x] Improve file structure
-- [x] Create placeholder routes
-- [x] Create sidebar layout
-- [x] Update README and documentation
-- [x] Branch and PR created
-- [x] Review & merge
-
-#### Sidebar Layout Example
-- Sidebar layout provides consistent navigation
-- Placeholder routes allow for future expansion
-
-#### Sequence Diagram: Sidebar Layout
-```mermaid
-sequenceDiagram
-  participant User
-  participant App
-  participant Sidebar
-  participant Router
-
-  User->>App: Accesses dashboard
-  App->>Router: Loads dashboard route
-  Router->>Sidebar: Renders sidebar layout
-  Sidebar-->>App: Sidebar displayed
-  App-->>User: Shows dashboard with sidebar
-  User->>Sidebar: Navigates to placeholder route
-  Sidebar->>Router: Triggers route change
-  Router->>App: Loads new placeholder route
-  App-->>User: Shows placeholder content
-```
-
----
-
-**Last Updated**: February 24, 2026  
-**Current Chapter**: Chapter 9 - Sidebar Layout ✓
+**Last Updated**: February 27, 2026  
+**Current Chapter**: Chapter 10 - Payments ✓
