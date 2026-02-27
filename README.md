@@ -1,7 +1,25 @@
 
 # N8N Clone
 
+
 A workflow automation platform inspired by n8n. This project enables users to create, manage, and execute complex automation workflows with a visual interface.
+
+## Progressive Architectural Layers
+
+Your project is structured in progressive architectural layers where each chapter builds on the previous one to create a production-ready workflow automation platform:
+
+- **Chapter 1:** Establishes the foundation using Next.js, TypeScript, Tailwind, and proper project structure.
+- **Chapter 2:** Introduces the data layer with Prisma and PostgreSQL. Sequence diagrams show how user creation and authentication securely flow from client → API → password hashing → database → response.
+- **Chapter 3:** Adds tRPC for end-to-end type safety, with diagrams illustrating server-side prefetching, client-side queries, hydration, and per-request context creation.
+- **Chapter 4:** Integrates BetterAuth, where diagrams demonstrate login, registration, session validation, and protected procedure middleware flows.
+- **Chapter 5:** Improves UI/UX with theming and branding.
+- **Chapter 6:** Introduces Inngest background jobs, with a sequence showing API triggering an event → background worker processing → database interaction → result return.
+- **Chapter 7:** Integrates multi-provider AI (Gemini, OpenAI, Anthropic) where the diagram shows provider selection → SDK initialization → model invocation → AI response.
+- **Chapter 8:** Adds Sentry for observability, demonstrating how errors and logs flow from app → SDK → monitoring dashboard.
+- **Chapter 9:** Implements a scalable sidebar layout where routing flows from user interaction → router → layout rendering.
+- **Chapter 10:** Integrates Polar payments, with a secure checkout and billing flow showing session validation → checkout session creation → redirect → subscription management.
+
+Together, these chapters form a full-stack SaaS architecture with authentication, background processing, AI, monitoring, and monetization layers working cohesively.
 
 ## 📚 Development Progress
 
