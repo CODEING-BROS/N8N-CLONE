@@ -1,16 +1,58 @@
 # N8N Clone
 
 A workflow automation platform inspired by n8n. Create, manage, and execute complex automation workflows with a visual interface.
-│   ├── trpc/                  # tRPC setup
-│   │   ├── init.ts           # tRPC initialization
-│   │   ├── server.tsx        # Server-only proxy
-│   │   ├── client.tsx        # Client provider
-│   │   ├── query-client.ts   # React Query config
-│   │   └── routers/
-│   │       └── _app.ts       # API procedures
-│   └── hooks/                 # Custom React hooks
-├── public/                    # Static assets
-└── package.json
+
+## Tech Stack
+- **Framework**: Next.js 15.5.4
+- **Language**: TypeScript 5
+- **Runtime**: Node.js
+- **Build Tool**: Turbopack
+- **Database**: PostgreSQL (Neon)
+- **ORM**: Prisma 6.19.2
+- **API Layer**: tRPC v11
+- **Query Caching**: TanStack React Query
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Shadcn UI
+- **Validation**: Zod
+- **Security**: bcrypt for password hashing
+- **Linting/Formatting**: Biome 2.2.0
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v20 or higher)
+- npm or yarn
+- PostgreSQL database (or Neon account)
+
+### Installation
+1. Clone the repository:
+  ```bash
+  git clone <repository-url>
+  cd N8NCLONE
+  ```
+2. Install dependencies:
+  ```bash
+  npm install
+  ```
+3. Set up environment variables:
+  ```bash
+  # Create .env file
+  DATABASE_URL="postgresql://user:password@host:5432/database"
+  ```
+4. Set up database:
+  ```bash
+  npx prisma db push
+  npx prisma generate
+  npx prisma studio # optional
+  ```
+
+### Running the Application
+```bash
+npm run dev         # Development mode
+npm run build       # Build for production
+npm start           # Start production server
+```
+App available at [http://localhost:3000](http://localhost:3000)
 ```
 
 
