@@ -135,60 +135,7 @@ See `prisma/schema.prisma` for full details.
 
 
 
-## 📊 Visual Documentation
-
-Comprehensive guides and diagrams:
-- [Sequence Diagrams](SEQUENCE_DIAGRAMS.md): Request/response flows, timing diagrams, performance metrics
-- [Architecture Reference Guide](ARCHITECTURE_REFERENCE.md): Layer diagrams, database schema, type safety, SSR flow
-- [Chapter Summaries](CHAPTER_2_SUMMARY.md), [CHAPTER_3_SUMMARY.md], [CHAPTER_4_SUMMARY.md], [CHAPTER_5_SUMMARY.md], [CHAPTER_6_SUMMARY.md]: Deep-dives on each feature
-
----
-
-
-
-## 🔄 Key Architecture Diagrams
-
-See [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md) for full diagrams and explanations.
-
----
-
-
-### Chapter 2 - Authentication Flow (Password Verification)
-
-```mermaid
-sequenceDiagram
-    participant Client as Client/Frontend
-    participant API as API Route
-    participant AuthLib as Auth Library<br/>(verifyPassword)
-    participant Prisma as Prisma Client
-    participant DB as PostgreSQL<br/>(Neon)
-    participant JWT as JWT/Session
-    
-    Client->>API: POST /api/login (email, password)
-    API->>AuthLib: authenticateUser(email, password)
-    AuthLib->>Prisma: prisma.user.findUnique()
-    Prisma->>DB: SELECT * FROM "User" WHERE email = ?
-    DB-->>Prisma: User { password_hash, ... }
-    Prisma-->>AuthLib: User object
-    AuthLib->>AuthLib: verifyPassword(inputPassword, hash)
-    alt Password Matches
-        AuthLib-->>API: User { id, email, username }
-        API->>JWT: createSession(userId)
-        JWT-->>API: token/cookie
-        API-->>Client: 200 OK { user, token }
-    else Password Invalid
-        AuthLib-->>API: null or error
-        API-->>Client: 401 Unauthorized
-    end
-```
-
-**Security Features:**
-- Timing-safe password comparison (bcrypt.compare)
-- Email indexed for fast lookups
-- Password never leaked on failed auth
-- Session/JWT created only on success
-
----
+# ...existing code...
 
 ### Chapter 3 - Server-Side Prefetching Flow
 
