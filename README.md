@@ -81,23 +81,93 @@ See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-7-ai-providers)
 #### Sequence Diagram: Error Tracking Workflow
 See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-8-rate-limiting-middleware-buckets)
 
+
 ### Chapter 9: Sidebar Layout ✅
-- [x] Improve file structure
-- [x] Create placeholder routes
-- [x] Create sidebar layout
-- [x] Update README and documentation
-- [x] Branch and PR created
-- [x] Review & merge
-#### Sequence Diagram: N/A (No sequence diagram for this chapter)
+
+#### Overview
+This chapter covers the implementation of a sidebar layout, including improvements to the file structure, creation of placeholder routes, and integration of the sidebar into the dashboard.
+
+#### Steps Completed
+- Improved file structure for better maintainability
+- Created placeholder routes for future features
+- Implemented sidebar layout for dashboard navigation
+- Updated README to reflect these changes
+- Pushed changes to a new branch (`09`), created a PR, reviewed, and merged
+
+#### Sequence Diagram
+```mermaid
+sequenceDiagram
+  participant User
+  participant App
+  participant Sidebar
+  participant Router
+
+  User->>App: Accesses dashboard
+  App->>Router: Loads dashboard route
+  Router->>Sidebar: Renders sidebar layout
+  Sidebar-->>App: Sidebar displayed
+  App-->>User: Shows dashboard with sidebar
+  User->>Sidebar: Navigates to placeholder route
+  Sidebar->>Router: Triggers route change
+  Router->>App: Loads new placeholder route
+  App-->>User: Shows placeholder content
+```
+
+#### Notes
+- The sidebar layout provides a consistent navigation experience.
+- Placeholder routes allow for easy expansion of dashboard features.
 
 ### Chapter 10: Payments ✅
-- [x] Setup Polar
-- [x] Integrate with Better Auth
-- [x] Create checkout
-- [x] Create billing portal
-- [x] Branch and PR created
-- [x] Review & merge
-#### Sequence Diagram: Payments Integration
+
+#### Overview
+This chapter covers the integration of payments using Polar, including checkout and billing portal flows, and connecting with authentication.
+
+#### Steps Completed
+- Setup Polar for payment processing
+- Integrated Polar with BetterAuth for secure user validation
+- Created checkout flow for users
+- Created billing portal for subscription management
+- Pushed changes to a new branch (`10`), created a PR, reviewed, and merged
+
+#### Sequence Diagram
+```mermaid
+sequenceDiagram
+  participant User
+  participant App
+  participant API
+  participant Auth
+  participant Polar
+  participant Checkout
+  participant Billing
+
+  User->>App: Initiates payment/checkout
+  App->>API: Calls payment endpoint
+  API->>Auth: Validates user session
+  Auth-->>API: Session valid
+  API->>Polar: Creates checkout session
+  Polar-->>API: Returns checkout URL
+  API-->>App: Returns checkout URL
+  App-->>User: Redirects to checkout
+  User->>Checkout: Completes payment
+  Checkout->>Polar: Processes payment
+  Polar-->>Checkout: Payment confirmation
+  Checkout-->>User: Shows result
+  User->>App: Accesses billing portal
+  App->>API: Calls billing portal endpoint
+  API->>Polar: Creates billing portal session
+  Polar-->>API: Returns billing portal URL
+  API-->>App: Returns billing portal URL
+  App-->>User: Redirects to billing portal
+  User->>Billing: Manages subscription
+  Billing->>Polar: Updates/cancels subscription
+  Polar-->>Billing: Confirmation
+  Billing-->>User: Shows updated status
+```
+
+#### Notes
+- All sensitive payment logic is handled by Polar.
+- User authentication is required for all payment and billing actions.
+- The integration ensures a secure and seamless payment experience.
 See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-10-payments)
 
 ### Chapter 1: Project Setup ✅
