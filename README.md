@@ -1,43 +1,6 @@
-
 # N8N Clone
 
 A workflow automation platform inspired by n8n. Create, manage, and execute complex automation workflows with a visual interface.
-
-│   ├── trpc/                  # tRPC setup
-│   │   ├── init.ts           # tRPC initialization
-│   │   ├── server.tsx        # Server-only proxy
-│   │   ├── client.tsx        # Client provider
-│   │   ├── query-client.ts   # React Query config
-│   │   └── routers/
-│   │       └── _app.ts       # API procedures
-│   └── hooks/                 # Custom React hooks
-├── public/                    # Static assets
-└── package.json
-```
-
----
-
-
-## Project Structure
-
-```
-N8NCLONE/
-├── prisma/
-│   └── schema.prisma           # Database schema
-├── src/
-│   ├── app/                    # Next.js app directory
-│   │   ├── page.tsx           # Server-side prefetch demo
-│   │   ├── client.tsx         # Client component
-│   │   ├── layout.tsx         # Root layout with providers
-│   │   ├── globals.css        # Global styles
-│   │   └── api/
-│   │       └── trpc/          # tRPC API route handler
-│   ├── components/            # React components
-│   │   └── ui/               # Shadcn UI components
-│   ├── lib/                   # Utility functions and clients
-│   │   ├── db.ts            # Prisma client
-│   │   ├── auth.ts          # Auth helpers
-│   │   └── password.ts      # Password utilities
 │   ├── trpc/                  # tRPC setup
 │   │   ├── init.ts           # tRPC initialization
 │   │   ├── server.tsx        # Server-only proxy
