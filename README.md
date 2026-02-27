@@ -1,5 +1,7 @@
 
 ### Chapter 2: Database and ORM ✅
+
+### Chapter 2: Database and ORM ✅
 - [x] Set up Prisma ORM (v6.16.3)
 - [x] Configure PostgreSQL database (Neon)
 - [x] Create database schema (User & Post models)
@@ -52,40 +54,35 @@ See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-4-authentication-jwtses
 #### Sequence Diagram: AI Provider Workflow
 See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-7-ai-providers)
 
+### Chapter 8: Error Tracking ✅
+- [x] Setup Sentry for error tracking
+- [x] Demonstrate session replays
+- [x] Demonstrate logs
+- [x] Demonstrate AI monitoring
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: Error Tracking Workflow
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-8-rate-limiting-middleware-buckets)
 
-# N8N Clone
+### Chapter 9: Sidebar Layout ✅
+- [x] Improve file structure
+- [x] Create placeholder routes
+- [x] Create sidebar layout
+- [x] Update README and documentation
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: Sidebar Layout
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-9-sidebar-layout)
 
-A workflow automation platform inspired by n8n. This project enables users to create, manage, and execute complex automation workflows with a visual interface.
-
-## 📚 Development Progress
-
-### Chapter 1: Project Setup ✅
-- [x] Initialize Next.js 15.5.4 with Turbopack
-- [x] Set up TypeScript configuration
-- [x] Configure Biome for linting and formatting
-- [x] Install and configure Tailwind CSS v4
-- [x] Set up Shadcn UI component library
-- [x] Project structure organization
-
-### Chapter 2: Database and ORM ✅
-- [x] Set up Prisma ORM (v6.16.3)
-- [x] Configure PostgreSQL database (Neon)
-- [x] Create database schema (User & Post models)
-- [x] Explore Prisma Studio
-- [x] Test Prisma API integration
-- [x] Database migrations and seeding
-#### Sequence Diagram: User Creation & Auth
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-2-database--orm)
-
-### Chapter 3: tRPC Setup ✅
-- [x] Set up tRPC v11
-- [x] Create procedures with Prisma API
-- [x] Explore tRPC server-side (prefetch, context)
-- [x] Explore tRPC client-side (hooks, provider)
-- [x] Explore server + client with prefetch (hydration)
-- [x] Production-ready configuration
-#### Sequence Diagram: Prefetch, Query, Context
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-3-trpc-setup)
+### Chapter 10: Payments ✅
+- [x] Setup Polar
+- [x] Integrate with Better Auth
+- [x] Create checkout
+- [x] Create billing portal
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: Payments Integration
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-10-payments)
 
 ### Chapter 4: Authentication ✅
 - [x] Set up BetterAuth v1.3.26
