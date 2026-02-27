@@ -6,123 +6,13 @@ A workflow automation platform inspired by n8n. Create, manage, and execute comp
 - **Framework**: Next.js 15.5.4
 - **Language**: TypeScript 5
 - **Runtime**: Node.js
-- **Build Tool**: Turbopack
-- **Database**: PostgreSQL (Neon)
-- **ORM**: Prisma 6.19.2
-- **API Layer**: tRPC v11
-- **Query Caching**: TanStack React Query
-- **Styling**: Tailwind CSS v4
-- **UI Components**: Shadcn UI
-- **Validation**: Zod
-- **Security**: bcrypt for password hashing
-- **Linting/Formatting**: Biome 2.2.0
-
-## Getting Started
-
-### Prerequisites
-- Node.js (v20 or higher)
-- npm or yarn
-- PostgreSQL database (or Neon account)
-
-### Installation
-1. Clone the repository:
-  ```bash
-  git clone <repository-url>
-  cd N8NCLONE
-  ```
-2. Install dependencies:
-  ```bash
-  npm install
-  ```
-3. Set up environment variables:
-  ```bash
-  # Create .env file
-  DATABASE_URL="postgresql://user:password@host:5432/database"
-  ```
-4. Set up database:
-  ```bash
-  npx prisma db push
-  npx prisma generate
-  npx prisma studio # optional
-  ```
-
-### Running the Application
-```bash
-npm run dev         # Development mode
-npm run build       # Build for production
-npm start           # Start production server
-```
-App available at [http://localhost:3000](http://localhost:3000)
-```
-
-
-## 🛠️ Tech Stack
-- **Framework**: Next.js 15.5.4
-- **Language**: TypeScript 5
-- **Runtime**: Node.js
-- **Build Tool**: Turbopack
-- **Database**: PostgreSQL (Neon)
-- **ORM**: Prisma 6.19.2
-- **API Layer**: tRPC v11
-- **Query Caching**: TanStack React Query
-- **Styling**: Tailwind CSS v4
-- **UI Components**: Shadcn UI
-- **Validation**: Zod
-- **Security**: bcrypt for password hashing
-- **Linting/Formatting**: Biome 2.2.0
 
 ---
-
-
-
-## ⚡ Getting Started
-
-### Prerequisites
-- Node.js (v20 or higher)
-- npm or yarn
-- PostgreSQL database (or Neon account)
-
-### Installation
-1. Clone the repository:
-  ```bash
-  git clone <repository-url>
-  cd N8NCLONE
-  ```
-2. Install dependencies:
-  ```bash
-  npm install
-  ```
-3. Set up environment variables:
-  ```bash
-  # Create .env file
-  DATABASE_URL="postgresql://user:password@host:5432/database"
-  ```
-4. Set up database:
-  ```bash
-  npx prisma db push
-  npx prisma generate
-  npx prisma studio # optional
-  ```
-
-### Running the Application
-```bash
-npm run dev         # Development mode
-npm run build       # Build for production
-npm start           # Start production server
-```
-App available at [http://localhost:3000](http://localhost:3000)
-
----
-
-
 
 ## 🗄️ Database Schema
-
 See `prisma/schema.prisma` for full details.
 
 ---
-
-
 
 ## 📜 Available Scripts
 - `npm run dev` — Start development server with Turbopack
@@ -133,9 +23,70 @@ See `prisma/schema.prisma` for full details.
 
 ---
 
+## 🔄 Chapter 2 - User Creation Flow (Database & ORM)
 
+```mermaid
+sequenceDiagram
+    participant Client as Client/Frontend
+    participant API as API Route
+    participant AuthLib as Auth Library
+    participant Prisma as Prisma Client
+    participant DB as PostgreSQL<br/>(Neon)
+    Client->>API: POST /api/... (username, email, password)
+    API->>AuthLib: createUser(data)
+    AuthLib->>AuthLib: hashPassword(password)
+    AuthLib->>Prisma: prisma.user.create()
+    Prisma->>DB: INSERT INTO "User" (email, username, password)
+    DB-->>Prisma: User { id, email, created_at }
+    Prisma-->>AuthLib: User object (password excluded)
+    AuthLib-->>API: { success: true, user }
+    API-->>Client: 200 OK { user }
+```
 
-# ...existing code...
+**Flow Explanation:**
+1. Client submits form with credentials
+2. Password hashed with bcrypt (10 salt rounds)
+3. Prisma creates user in PostgreSQL
+4. Password hash stored (never returned to client)
+5. User data returned without sensitive fields
+
+---
+
+### Chapter 2 - Authentication Flow (Password Verification)
+
+```mermaid
+sequenceDiagram
+    participant Client as Client/Frontend
+    participant API as API Route
+    participant AuthLib as Auth Library<br/>(verifyPassword)
+    participant Prisma as Prisma Client
+    participant DB as PostgreSQL<br/>(Neon)
+    participant JWT as JWT/Session
+    Client->>API: POST /api/login (email, password)
+    API->>AuthLib: authenticateUser(email, password)
+    AuthLib->>Prisma: prisma.user.findUnique()
+    Prisma->>DB: SELECT * FROM "User" WHERE email = ?
+    DB-->>Prisma: User { password_hash, ... }
+    Prisma-->>AuthLib: User object
+    AuthLib->>AuthLib: verifyPassword(inputPassword, hash)
+    alt Password Matches
+        AuthLib-->>API: User { id, email, username }
+        API->>JWT: createSession(userId)
+        JWT-->>API: token/cookie
+        API-->>Client: 200 OK { user, token }
+    else Password Invalid
+        AuthLib-->>API: null or error
+        API-->>Client: 401 Unauthorized
+    end
+```
+
+**Security Features:**
+- Timing-safe password comparison (bcrypt.compare)
+- Email indexed for fast lookups
+- Password never leaked on failed auth
+- Session/JWT created only on success
+
+---
 
 ### Chapter 3 - Server-Side Prefetching Flow
 
