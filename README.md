@@ -1,5 +1,17 @@
 
-### Chapter 2: Database and ORM ✅
+# N8N Clone
+
+A workflow automation platform inspired by n8n. This project enables users to create, manage, and execute complex automation workflows with a visual interface.
+
+## 📚 Development Progress
+
+### Chapter 1: Project Setup ✅
+- [x] Initialize Next.js 15.5.4 with Turbopack
+- [x] Set up TypeScript configuration
+- [x] Configure Biome for linting and formatting
+- [x] Install and configure Tailwind CSS v4
+- [x] Set up Shadcn UI component library
+- [x] Project structure organization
 
 ### Chapter 2: Database and ORM ✅
 - [x] Set up Prisma ORM (v6.16.3)
@@ -48,10 +60,41 @@ See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-4-authentication-jwtses
 - [x] Set up AI SDK(s) and environment variables
 - [x] Integrate AI SDK with Inngest background jobs
 - [x] Add provider selection logic
+- [x] Test AI workflow end-to-end
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: AI Provider Workflow
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-7-ai-providers)
 
-# N8N Clone
+### Chapter 8: Error Tracking ✅
+- [x] Setup Sentry for error tracking
+- [x] Demonstrate session replays
+- [x] Demonstrate logs
+- [x] Demonstrate AI monitoring
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: Error Tracking Workflow
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-8-rate-limiting-middleware-buckets)
 
-A workflow automation platform inspired by n8n. This project enables users to create, manage, and execute complex automation workflows with a visual interface.
+### Chapter 9: Sidebar Layout ✅
+- [x] Improve file structure
+- [x] Create placeholder routes
+- [x] Create sidebar layout
+- [x] Update README and documentation
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: Sidebar Layout
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-9-sidebar-layout)
+
+### Chapter 10: Payments ✅
+- [x] Setup Polar
+- [x] Integrate with Better Auth
+- [x] Create checkout
+- [x] Create billing portal
+- [x] Branch and PR created
+- [x] Review & merge
+#### Sequence Diagram: Payments Integration
+See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-10-payments)
 
 ## 📚 Development Progress
 
