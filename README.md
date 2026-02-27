@@ -31,6 +31,22 @@ A workflow automation platform inspired by n8n. Create, manage, and execute comp
 | 7 | AI Providers | ✅ |
 | 8 | Error Tracking | ✅ |
 | 9 | Sidebar Layout | ✅ |
+| 10 | Payments | 🚧 |
+---
+
+## 💳 Chapter 10: Payments
+
+Payment integration and workflow (in progress):
+- Integrate payment provider (Stripe, PayPal, etc.)
+- Add payment UI and checkout flow
+- Store payment and subscription data in database
+- Secure payment endpoints and webhooks
+- Test payment flows end-to-end
+
+See [CHAPTER_10_PAYMENTS.md](CHAPTER_10_PAYMENTS.md) for technical details and diagrams.
+
+---
+
 
 ---
 
