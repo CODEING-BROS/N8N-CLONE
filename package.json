@@ -17,6 +17,8 @@
     "@ai-sdk/openai": "^2.0.44",
     "@base-ui/react": "^1.2.0",
     "@hookform/resolvers": "^5.2.2",
+    "@polar-sh/better-auth": "^1.1.9",
+    "@polar-sh/sdk": "^0.35.4",
     "@prisma/client": "^6.16.3",
     "@sentry/nextjs": "^10.39.0",
     "@tanstack/react-query": "^5.90.21",
