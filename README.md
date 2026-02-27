@@ -1,262 +1,203 @@
+
 # N8N Clone
 
-A workflow automation platform inspired by n8n. This project enables users to create, manage, and execute complex automation workflows with a visual interface.
-
-## Architecture Overview
-
-This project is structured in progressive architectural layers, where each chapter builds on the previous to create a production-ready workflow automation platform:
-
-- **Chapter 1:** Foundation with Next.js, TypeScript, Tailwind, and project structure.
-- **Chapter 2:** Data layer with Prisma and PostgreSQL. Sequence diagrams show secure user creation and authentication flows.
-- **Chapter 3:** End-to-end type safety with tRPC. Diagrams illustrate server-side prefetching, client-side queries, hydration, and per-request context.
-- **Chapter 4:** Authentication with BetterAuth. Diagrams demonstrate login, registration, session validation, and protected procedure middleware.
-- **Chapter 5:** UI/UX improvements with theming and branding.
-- **Chapter 6:** Background jobs with Inngest. Sequence shows API event triggering → worker processing → database interaction → result return.
-- **Chapter 7:** Multi-provider AI (Gemini, OpenAI, Anthropic). Diagram shows provider selection → SDK initialization → model invocation → AI response.
-- **Chapter 8:** Observability with Sentry. Diagrams show error/log flows from app → SDK → monitoring dashboard.
-- **Chapter 9:** Scalable sidebar layout. Routing flows from user interaction → router → layout rendering.
-- **Chapter 10:** Polar payments integration. Secure checkout and billing flow: session validation → checkout session creation → redirect → subscription management.
-
-Together, these chapters form a full-stack SaaS architecture with authentication, background processing, AI, monitoring, and monetization layers working cohesively.
+A workflow automation platform inspired by n8n. Create, manage, and execute complex automation workflows with a visual interface.
 
 ---
+
+**Last Updated:** February 24, 2026
+
+## 🚀 Features
+- Visual workflow builder (Coming soon)
+- Node-based automation (Coming soon)
+- Workflow execution and monitoring (Coming soon)
+- Database integration with Prisma ✅
+- Type-safe API layer ✅
+- Authentication with BetterAuth ✅
+- AI provider integration (Gemini, OpenAI, Anthropic) ✅
+- Error tracking with Sentry ✅
+- Sidebar layout and navigation ✅
 
 ## 📚 Development Progress
 
-### Chapter 1: Project Setup ✅
-- [x] Initialize Next.js 15.5.4 with Turbopack
-- [x] Set up TypeScript configuration
-- [x] Configure Biome for linting and formatting
-- [x] Install and configure Tailwind CSS v4
-- [x] Set up Shadcn UI component library
-- [x] Project structure organization
-
-### Chapter 2: Database and ORM ✅
-- [x] Set up Prisma ORM (v6.16.3)
-- [x] Configure PostgreSQL database (Neon)
-- [x] Create database schema (User & Post models)
-- [x] Explore Prisma Studio
-- [x] Test Prisma API integration
-- [x] Database migrations and seeding
-#### Sequence Diagram: User Creation & Auth
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-2-database--orm)
-
-### Chapter 3: tRPC Setup ✅
-- [x] Set up tRPC v11
-- [x] Create procedures with Prisma API
-- [x] Explore tRPC server-side (prefetch, context)
-- [x] Explore tRPC client-side (hooks, provider)
-- [x] Explore server + client with prefetch (hydration)
-- [x] Production-ready configuration
-#### Sequence Diagram: Prefetch, Query, Context
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-3-trpc-setup)
-
-### Chapter 4: Authentication ✅
-- [x] Set up BetterAuth v1.3.26
-- [x] Add login/register UI
-- [x] Add auth utilities
-- [x] Protect procedures with sessions
-#### Sequence Diagram: Auth Flows
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-4-authentication-jwtsession-flow)
-
-### Chapter 5: Theme & Styling ✅
-- [x] Apply new theme
-- [x] Improve auth screens
-- [x] Add logos
-#### Sequence Diagram: N/A
-
-### Chapter 6: Background Jobs ✅
-- [x] Setup Inngest
-- [x] Create a background job
-- [x] Add mprocs for parallel dev
-- [x] Branch and PR created
-- [x] Review & merge
-#### Sequence Diagram: N/A
-
-### Chapter 7: AI Providers ✅
-- [x] Choose AI model(s): Gemini, OpenAI, Anthropic, etc.
-- [x] Set up AI SDK(s) and environment variables
-- [x] Integrate AI SDK with Inngest background jobs
-- [x] Add provider selection logic
-- [x] Test AI workflow end-to-end
-- [x] Branch and PR created
-- [x] Review & merge
-#### Sequence Diagram: AI Provider Workflow
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-7-ai-providers)
-
-### Chapter 8: Error Tracking ✅
-- [x] Setup Sentry for error tracking
-- [x] Demonstrate session replays
-- [x] Demonstrate logs
-- [x] Demonstrate AI monitoring
-- [x] Branch and PR created
-- [x] Review & merge
-#### Sequence Diagram: Error Tracking Workflow
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-8-rate-limiting-middleware-buckets)
-
-### Chapter 9: Sidebar Layout ✅
-- [x] Improve file structure for maintainability
-- [x] Create placeholder routes for future features
-- [x] Implement sidebar layout for dashboard navigation
-- [x] Update README to reflect these changes
-- [x] Branch and PR created
-- [x] Review & merge
-#### Sequence Diagram: Sidebar Layout
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-9-sidebar-layout)
-
-### Chapter 10: Payments ✅
-- [x] Setup Polar for payment processing
-- [x] Integrate Polar with BetterAuth for secure user validation
-- [x] Create checkout flow for users
-- [x] Create billing portal for subscription management
-- [x] Branch and PR created
-- [x] Review & merge
-#### Sequence Diagram: Payments Integration
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-10-payments)
+| Chapter | Feature | Status |
+|---------|---------|--------|
+| 1 | Project Setup | ✅ |
+| 2 | Database & ORM | ✅ |
+| 3 | tRPC Setup | ✅ |
+| 4 | Authentication | ✅ |
+| 5 | Theme & Styling | ✅ |
+| 6 | Background Jobs | ✅ |
+| 7 | AI Providers | ✅ |
+| 8 | Error Tracking | ✅ |
+| 9 | Sidebar Layout | ✅ |
 
 ---
 
-## Technical Deep-Dive
+## Project Structure
 
-### Chapter 2: Database & ORM
-
-#### Prisma Models
-
-```prisma
-model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-
-  @@unique([email])
-  @@map("user")
-}
-
-model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([token])
-  @@map("session")
-}
-
-model Account {
-  id                    String    @id
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
-
-  @@map("account")
-}
-
-model Verification {
-  id         String   @id
-  identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
-
-  @@map("verification")
-}
+```
+N8NCLONE/
+├── prisma/
+│   └── schema.prisma           # Database schema
+├── src/
+│   ├── app/                    # Next.js app directory
+│   │   ├── page.tsx           # Server-side prefetch demo
+│   │   ├── client.tsx         # Client component
+│   │   ├── layout.tsx         # Root layout with providers
+│   │   ├── globals.css        # Global styles
+│   │   └── api/
+│   │       └── trpc/          # tRPC API route handler
+│   ├── components/            # React components
+│   │   └── ui/               # Shadcn UI components
+│   ├── lib/                   # Utility functions and clients
+│   │   ├── db.ts            # Prisma client
+│   │   ├── auth.ts          # Auth helpers
+│   │   └── password.ts      # Password utilities
+│   ├── trpc/                  # tRPC setup
+│   │   ├── init.ts           # tRPC initialization
+│   │   ├── server.tsx        # Server-only proxy
+│   │   ├── client.tsx        # Client provider
+│   │   ├── query-client.ts   # React Query config
+│   │   └── routers/
+│   │       └── _app.ts       # API procedures
+│   └── hooks/                 # Custom React hooks
+├── public/                    # Static assets
+└── package.json
 ```
 
 ---
 
-## Sequence Diagrams
 
-All sequence diagrams are maintained in [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md) and referenced under each chapter above. For detailed flows, see:
-- Chapter 2: User creation, authentication, and Prisma data flows
-- Chapter 3: Server-side prefetching, client-side queries, tRPC context
-- Chapter 4: Authentication flows (login, registration, session validation, protected procedures)
-- Chapter 6: Background job flows
-- Chapter 7: AI provider integration
-- Chapter 8: Error tracking flows
-- Chapter 9: Sidebar layout routing
-- Chapter 10: Payments integration, checkout, and billing portal
+## Project Structure
+
+```
+N8NCLONE/
+├── prisma/
+│   └── schema.prisma           # Database schema
+├── src/
+│   ├── app/                    # Next.js app directory
+│   │   ├── page.tsx           # Server-side prefetch demo
+│   │   ├── client.tsx         # Client component
+│   │   ├── layout.tsx         # Root layout with providers
+│   │   ├── globals.css        # Global styles
+│   │   └── api/
+│   │       └── trpc/          # tRPC API route handler
+│   ├── components/            # React components
+│   │   └── ui/               # Shadcn UI components
+│   ├── lib/                   # Utility functions and clients
+│   │   ├── db.ts            # Prisma client
+│   │   ├── auth.ts          # Auth helpers
+│   │   └── password.ts      # Password utilities
+│   ├── trpc/                  # tRPC setup
+│   │   ├── init.ts           # tRPC initialization
+│   │   ├── server.tsx        # Server-only proxy
+│   │   ├── client.tsx        # Client provider
+│   │   ├── query-client.ts   # React Query config
+│   │   └── routers/
+│   │       └── _app.ts       # API procedures
+│   └── hooks/                 # Custom React hooks
+├── public/                    # Static assets
+└── package.json
+```
+
+
+## 🛠️ Tech Stack
+- **Framework**: Next.js 15.5.4
+- **Language**: TypeScript 5
+- **Runtime**: Node.js
+- **Build Tool**: Turbopack
+- **Database**: PostgreSQL (Neon)
+- **ORM**: Prisma 6.19.2
+- **API Layer**: tRPC v11
+- **Query Caching**: TanStack React Query
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Shadcn UI
+- **Validation**: Zod
+- **Security**: bcrypt for password hashing
+- **Linting/Formatting**: Biome 2.2.0
 
 ---
 
-## Available Scripts
 
-- `npm run dev` - Start development server with Turbopack
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run Biome linter
-- `npm run format` - Format code with Biome
+
+## ⚡ Getting Started
+
+### Prerequisites
+- Node.js (v20 or higher)
+- npm or yarn
+- PostgreSQL database (or Neon account)
+
+### Installation
+1. Clone the repository:
+  ```bash
+  git clone <repository-url>
+  cd N8NCLONE
+  ```
+2. Install dependencies:
+  ```bash
+  npm install
+  ```
+3. Set up environment variables:
+  ```bash
+  # Create .env file
+  DATABASE_URL="postgresql://user:password@host:5432/database"
+  ```
+4. Set up database:
+  ```bash
+  npx prisma db push
+  npx prisma generate
+  npx prisma studio # optional
+  ```
+
+### Running the Application
+```bash
+npm run dev         # Development mode
+npm run build       # Build for production
+npm start           # Start production server
+```
+App available at [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Prisma Commands
 
-- `npx prisma studio` - Open Prisma Studio
-- `npx prisma generate` - Generate Prisma Client
-- `npx prisma db push` - Push schema to database
-- `npx prisma migrate dev` - Create and apply migrations
-- `npx prisma migrate reset` - Reset database
+
+## 🗄️ Database Schema
+
+See `prisma/schema.prisma` for full details.
 
 ---
+
+
+
+## 📜 Available Scripts
+- `npm run dev` — Start development server with Turbopack
+- `npm run build` — Build for production
+- `npm start` — Start production server
+- `npm run lint` — Run Biome linter
+- `npm run format` — Format code with Biome
+
+---
+
+
 
 ## 📊 Visual Documentation
 
-Comprehensive visual guides and sequence diagrams for understanding the architecture:
-
-- [Sequence Diagrams](SEQUENCE_DIAGRAMS.md) - Complete request/response flows for all chapters
-- [Architecture Reference Guide](ARCHITECTURE_REFERENCE.md) - Visual architecture and component relationships
-- [Chapter 2 Technical Summary](CHAPTER_2_SUMMARY.md) - Database & ORM deep-dive
-- [Chapter 3 Technical Summary](CHAPTER_3_SUMMARY.md) - tRPC Setup deep-dive
-- [Chapter 4 Technical Summary](CHAPTER_4_SUMMARY.md) - Authentication deep-dive
-- [Chapter 5 Technical Summary](CHAPTER_5_SUMMARY.md) - Theme & styling deep-dive
-- [Chapter 6 Technical Summary](CHAPTER_6_SUMMARY.md) - Background Jobs
+Comprehensive guides and diagrams:
+- [Sequence Diagrams](SEQUENCE_DIAGRAMS.md): Request/response flows, timing diagrams, performance metrics
+- [Architecture Reference Guide](ARCHITECTURE_REFERENCE.md): Layer diagrams, database schema, type safety, SSR flow
+- [Chapter Summaries](CHAPTER_2_SUMMARY.md), [CHAPTER_3_SUMMARY.md], [CHAPTER_4_SUMMARY.md], [CHAPTER_5_SUMMARY.md], [CHAPTER_6_SUMMARY.md]: Deep-dives on each feature
 
 ---
 
+
+
 ## 🔄 Key Architecture Diagrams
 
-See [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md) for all diagrams. Example flows:
+See [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md) for full diagrams and explanations.
 
-### Chapter 2 - User Creation Flow (Database & ORM)
+---
 
-```mermaid
-sequenceDiagram
-    participant Client as Client/Frontend
-    participant API as API Route
-    participant AuthLib as Auth Library
-    participant Prisma as Prisma Client
-    participant DB as PostgreSQL<br/>(Neon)
-    Client->>API: POST /api/... (username, email, password)
-    API->>AuthLib: createUser(data)
-    AuthLib->>AuthLib: hashPassword(password)
-    AuthLib->>Prisma: prisma.user.create()
-    Prisma->>DB: INSERT INTO "User" (email, username, password)
-    DB-->>Prisma: User { id, email, created_at }
-    Prisma-->>AuthLib: User object (password excluded)
-    AuthLib-->>API: { success: true, user }
-    API-->>Client: 200 OK { user }
-```
 
 ### Chapter 2 - Authentication Flow (Password Verification)
 
@@ -268,6 +209,7 @@ sequenceDiagram
     participant Prisma as Prisma Client
     participant DB as PostgreSQL<br/>(Neon)
     participant JWT as JWT/Session
+    
     Client->>API: POST /api/login (email, password)
     API->>AuthLib: authenticateUser(email, password)
     AuthLib->>Prisma: prisma.user.findUnique()
@@ -286,6 +228,14 @@ sequenceDiagram
     end
 ```
 
+**Security Features:**
+- Timing-safe password comparison (bcrypt.compare)
+- Email indexed for fast lookups
+- Password never leaked on failed auth
+- Session/JWT created only on success
+
+---
+
 ### Chapter 3 - Server-Side Prefetching Flow
 
 ```mermaid
@@ -296,6 +246,7 @@ sequenceDiagram
     participant tRPC as tRPC Router
     participant Prisma as Prisma Client
     participant DB as PostgreSQL<br/>(Neon)
+    
     Browser->>Server: GET /
     Server->>QueryClient: create new instance
     Server->>tRPC: queryClient.prefetchQuery(getUsers)
@@ -312,6 +263,14 @@ sequenceDiagram
     Browser-->>Browser: Render with data (no loading)
 ```
 
+**Performance Benefits:**
+- Data fetched on server (faster database access)
+- HTML includes data (LCP improvement)
+- Browser hydrates from cache (zero loading state)
+- No waterfalls (browser won't re-fetch)
+
+---
+
 ### Chapter 3 - Client-Side Query Flow
 
 ```mermaid
@@ -324,6 +283,7 @@ sequenceDiagram
     participant Router as tRPC Router
     participant Prisma as Prisma Client
     participant DB as PostgreSQL
+    
     Component->>Hook: useQuery(trpc.getUsers)
     Hook->>Client: Execute query
     Client->>HTTPLink: POST /api/trpc/getUsers
@@ -341,6 +301,15 @@ sequenceDiagram
     Component->>Component: Render with data
 ```
 
+**Key Features:**
+- Type-safe queries from TypeScript types
+- Automatic request batching
+- React Query handles caching
+- superjson serialization for complex types
+- Automatic loading/error states
+
+---
+
 ### Chapter 3 - tRPC Context & Middleware (Per-Request Caching)
 
 ```mermaid
@@ -351,6 +320,7 @@ sequenceDiagram
     participant Procedure as tRPC Procedure
     participant Prisma as Prisma Client
     participant DB as PostgreSQL
+    
     Request->>Middleware: API call
     Middleware->>Middleware: Extract headers/cookies
     Middleware->>SessionCache: Verify session (cached)
@@ -366,6 +336,15 @@ sequenceDiagram
     Procedure-->>Request: JSON response (serialized by superjson)
 ```
 
+**Context Benefits:**
+- Context created once per request
+- React `cache()` deduplicates identical calls
+- Session verified once, used everywhere
+- Type-safe within procedures
+- Prisma context available to all handlers
+
+---
+
 ### Chapter 4 - Authentication Flows (BetterAuth)
 
 ```mermaid
@@ -376,6 +355,7 @@ sequenceDiagram
   participant API as /api/auth
   participant Auth as BetterAuth
   participant DB as PostgreSQL
+
   User->>Register: Submit email + password
   Register->>Client: authClient.signUp.email()
   Client->>API: POST /api/auth/*
@@ -387,34 +367,165 @@ sequenceDiagram
   Client-->>Register: Redirect or success UI
 ```
 
----
-
-## Architecture Comparison
-
-| Aspect | Chapter 2 | Chapter 3 | Chapter 4 | Chapter 5 |
-|--------|-----------|----------|-----------|-----------|
-| **Type Safety** | Partial (Prisma → API) | End-to-end (DB → Client) | End-to-end (Auth + API) | UI only |
-| **API Definition** | Manual routes | tRPC routers | BetterAuth + tRPC | N/A |
-| **Client Queries** | fetch() + types | useQuery hooks | authClient + hooks | N/A |
-| **Data Format** | JSON | superjson (Dates, BigInt) | Session tokens | N/A |
-| **Caching** | Manual | React Query built-in | Session-based | N/A |
-| **Server Data** | Separate calls | Prefetch + hydrate | Session validation | N/A |
-| **Context Sharing** | Per-route | Middleware + cache | protectedProcedure | N/A |
+**Sign Up Flow:**
+- Client form calls `authClient.signUp.email`
+- BetterAuth creates the user in the database
+- Session is created and returned
 
 ---
 
-## Project Features
+```mermaid
+sequenceDiagram
+  participant User as User/Browser
+  participant Login as Login Form
+  participant Client as Auth Client
+  participant API as /api/auth
+  participant Auth as BetterAuth
+  participant DB as PostgreSQL
 
-- Visual workflow builder (Coming soon)
-- Node-based automation (Coming soon)
-- Workflow execution and monitoring (Coming soon)
-- Database integration with Prisma ✅
-- Type-safe API layer ✅
+  User->>Login: Submit email + password
+  Login->>Client: authClient.signIn.email()
+  Client->>API: POST /api/auth/*
+  API->>Auth: Validate credentials
+  Auth->>DB: Find user + verify password
+  alt Valid credentials
+    DB-->>Auth: User found
+    Auth-->>API: Success response
+    API-->>Client: Session token
+    Client-->>Login: Redirect or success UI
+  else Invalid credentials
+    DB-->>Auth: Not found or mismatch
+    Auth-->>API: Error response
+    API-->>Client: Show error message
+  end
+```
+
+**Sign In Flow:**
+- BetterAuth validates credentials
+- Returns a session on success
 
 ---
 
-## Development Workflow
+```mermaid
+sequenceDiagram
+  participant Request as Request
+  participant tRPC as tRPC Router
+  participant Protected as protectedProcedure
+  participant Auth as BetterAuth
+  participant DB as PostgreSQL
 
+  Request->>tRPC: Call protected procedure
+  tRPC->>Protected: Execute middleware
+  Protected->>Auth: auth.api.getSession(headers)
+  Auth->>DB: Validate session token
+  alt Session valid
+    DB-->>Auth: Session + user
+    Auth-->>Protected: Session
+    Protected-->>tRPC: Continue with ctx.auth
+    tRPC-->>Request: Procedure response
+  else Session missing
+    DB-->>Auth: No session
+    Auth-->>Protected: null
+    Protected-->>tRPC: UNAUTHORIZED error
+    tRPC-->>Request: Error response
+  end
+```
+
+**Protected Procedure Flow:**
+- `protectedProcedure` checks session via BetterAuth
+- Request is rejected if not authenticated
+
+---
+
+```mermaid
+sequenceDiagram
+  participant User as User/Browser
+  participant Login as /login page
+  participant Register as /register page
+  participant Client as Auth Client
+
+  User->>Login: Open /login
+  Login-->>User: Show login form
+  User->>Register: Click "Sign Up"
+  Register-->>User: Show register form
+  User->>Register: Submit registration
+  Register->>Client: signUp.email()
+  Client-->>Register: Success
+  Register-->>User: Redirect to app
+```
+
+**Auth UI Navigation:**
+- Login page links to register
+- Register flow redirects on success
+
+---
+
+```mermaid
+sequenceDiagram
+  participant Client as Auth Client
+  participant API as /api/auth/session
+  participant Auth as BetterAuth
+  participant DB as PostgreSQL
+
+  Client->>API: GET session
+  API->>Auth: Validate token
+  Auth->>DB: Fetch session + user
+  DB-->>Auth: Session data
+  Auth-->>API: Session response
+  API-->>Client: { session, user }
+```
+
+**Session Validation:**
+- Used by client to check login state
+
+---
+
+### Chapter 5 - Theme & Styling Summary
+
+**What changed:**
+- New global theme and typography tokens
+- Auth screens refreshed for layout, spacing, and visual hierarchy
+- Logos added to reinforce branding
+
+---
+
+### Chapter 6 - Background Jobs
+
+- Inngest setup and configuration
+- Background job creation and execution
+- Parallel development with mprocs
+- Branch and PR creation
+- Review and merge
+
+
+## 🏗️ Architecture Comparison
+
+| Aspect | Ch. 2 | Ch. 3 | Ch. 4 | Ch. 5 |
+|--------|-------|-------|-------|-------|
+| Type Safety | Partial | End-to-end | End-to-end | UI only |
+| API Definition | Manual | tRPC routers | BetterAuth + tRPC | N/A |
+| Client Queries | fetch() | useQuery | authClient | N/A |
+| Data Format | JSON | superjson | Session tokens | N/A |
+| Caching | Manual | React Query | Session-based | N/A |
+| Server Data | Separate | Prefetch | Session validation | N/A |
+| Context Sharing | Per-route | Middleware | protectedProcedure | N/A |
+
+---
+
+
+
+## 🧩 Prisma Commands
+- `npx prisma studio` — Open Prisma Studio
+- `npx prisma generate` — Generate Prisma Client
+- `npx prisma db push` — Push schema to database
+- `npx prisma migrate dev` — Create and apply migrations
+- `npx prisma migrate reset` — Reset database
+
+---
+
+
+
+## 🧑‍💻 Development Workflow
 1. Create a new branch for each chapter/feature
 2. Make changes and test locally
 3. Create a Pull Request
@@ -422,12 +533,125 @@ sequenceDiagram
 
 ---
 
-## Contributing
 
-Guidelines for contributing to this project.
+
+## 🤝 Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 📄 License
+Specify your project license here.
 
 ---
 
-## License
 
-Specify your project license.
+
+
+### Chapter 7: AI Providers ✅
+- [x] Choose AI model(s): Gemini, OpenAI, Anthropic, etc.
+- [x] Set up AI SDK(s) and environment variables
+- [x] Integrate AI SDK with Inngest background jobs
+- [x] Add provider selection logic
+- [x] Test AI workflow end-to-end
+- [x] Branch and PR created
+- [x] Review & merge
+
+#### AI Provider Integration Example
+- Users can select from multiple AI providers (Gemini, OpenAI, Anthropic)
+- SDKs are initialized based on provider selection
+- Inngest background jobs use the selected AI model to process tasks
+- Provider and API key are managed via environment variables
+
+#### Sequence Diagram: AI Provider Workflow
+```mermaid
+sequenceDiagram
+    participant User as User/Frontend
+    participant API as API Route
+    participant Inngest as Inngest Function
+    participant Provider as AI Provider SDK
+    participant Model as AI Model (Gemini/OpenAI/Anthropic)
+
+    User->>API: Submit workflow with provider/model choice
+    API->>Inngest: Trigger background job (provider, input)
+    Inngest->>Provider: Initialize SDK (env vars)
+    Provider->>Model: Send prompt/input
+    Model-->>Provider: AI response
+    Provider-->>Inngest: Return result
+    Inngest-->>API: Job complete (result)
+    API-->>User: Show AI output
+```
+
+---
+
+**Last Updated**: February 23, 2026  
+
+### Chapter 8: Error Tracking ✅
+- [x] Setup Sentry for error tracking
+- [x] Demonstrate session replays
+- [x] Demonstrate logs
+- [x] Demonstrate AI monitoring
+- [x] Branch and PR created
+- [x] Review & merge
+
+#### Error Tracking Integration Example
+- Sentry is integrated for real-time error monitoring
+- Session replays capture user interactions for debugging
+- Logs and traces are sent to Sentry for analysis
+- AI monitoring tracks model errors and latency
+
+#### Sequence Diagram: Error Tracking Workflow
+```mermaid
+sequenceDiagram
+  participant User as User/Frontend
+  participant App as App/Next.js
+  participant Sentry as Sentry SDK
+  participant Dashboard as Sentry Dashboard
+
+  User->>App: Interacts with app (triggers error)
+  App->>Sentry: Capture error/log/session replay
+  Sentry-->>Dashboard: Send error data
+  Dashboard-->>App: Error insights, alerts
+```
+
+---
+
+**Last Updated**: February 23, 2026  
+**Current Chapter**: Chapter 8 - Error Tracking ✓
+
+**Last Updated**: February 24, 2026  
+**Current Chapter**: Chapter 9 - Sidebar Layout ✓
+
+### Chapter 9: Sidebar Layout ✅
+- [x] Improve file structure
+- [x] Create placeholder routes
+- [x] Create sidebar layout
+- [x] Update README and documentation
+- [x] Branch and PR created
+- [x] Review & merge
+
+#### Sidebar Layout Example
+- Sidebar layout provides consistent navigation
+- Placeholder routes allow for future expansion
+
+#### Sequence Diagram: Sidebar Layout
+```mermaid
+sequenceDiagram
+  participant User
+  participant App
+  participant Sidebar
+  participant Router
+
+  User->>App: Accesses dashboard
+  App->>Router: Loads dashboard route
+  Router->>Sidebar: Renders sidebar layout
+  Sidebar-->>App: Sidebar displayed
+  App-->>User: Shows dashboard with sidebar
+  User->>Sidebar: Navigates to placeholder route
+  Sidebar->>Router: Triggers route change
+  Router->>App: Loads new placeholder route
+  App-->>User: Shows placeholder content
+```
+
+---
+
+**Last Updated**: February 24, 2026  
+**Current Chapter**: Chapter 9 - Sidebar Layout ✓
