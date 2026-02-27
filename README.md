@@ -7,6 +7,11 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 
 ### Chapter 1: Project Setup ✅
 - [x] Initialize Next.js 15.5.4 with Turbopack
+
+## 📚 Development Progress
+
+### Chapter 1: Project Setup ✅
+- [x] Initialize Next.js 15.5.4 with Turbopack
 - [x] Set up TypeScript configuration
 - [x] Configure Biome for linting and formatting
 - [x] Install and configure Tailwind CSS v4
@@ -83,8 +88,7 @@ See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-8-rate-limiting-middlew
 - [x] Update README and documentation
 - [x] Branch and PR created
 - [x] Review & merge
-#### Sequence Diagram: Sidebar Layout
-See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-9-sidebar-layout)
+#### Sequence Diagram: N/A (No sequence diagram for this chapter)
 
 ### Chapter 10: Payments ✅
 - [x] Setup Polar
@@ -95,8 +99,6 @@ See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-9-sidebar-layout)
 - [x] Review & merge
 #### Sequence Diagram: Payments Integration
 See: [SEQUENCE_DIAGRAMS.md](SEQUENCE_DIAGRAMS.md#chapter-10-payments)
-
-## 📚 Development Progress
 
 ### Chapter 1: Project Setup ✅
 - [x] Initialize Next.js 15.5.4 with Turbopack
