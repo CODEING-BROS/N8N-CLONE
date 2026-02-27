@@ -4,17 +4,65 @@ This document contains sequence diagrams for all chapters showing data flow, int
 
 ---
 
+
 ## Table of Contents
 
 - [Chapter 2: Database & ORM](#chapter-2-database--orm)
-  - [User Creation Flow](#user-creation-flow)
-  - [Authentication Flow](#authentication-flow)
-  - [Prisma Data Flow Explanation](#prisma-data-flow-explanation)
+        - [User Creation Flow](#user-creation-flow)
+        - [Authentication Flow](#authentication-flow)
+        - [Prisma Data Flow Explanation](#prisma-data-flow-explanation)
 - [Chapter 3: tRPC Setup](#chapter-3-trpc-setup)
-  - [Server-Side Prefetching Flow](#server-side-prefetching-flow)
-  - [Client-Side Query Flow](#client-side-query-flow)
-  - [tRPC Context & Middleware Flow](#trpc-context--middleware-flow)
-  - [Request/Response Architecture](#requestresponse-architecture)
+        - [Server-Side Prefetching Flow](#server-side-prefetching-flow)
+        - [Client-Side Query Flow](#client-side-query-flow)
+        - [tRPC Context & Middleware Flow](#trpc-context--middleware-flow)
+        - [Request/Response Architecture](#requestresponse-architecture)
+- [Chapter 10: Payments](#chapter-10-payments)
+# Chapter 10: Payments
+
+### Payments Integration, Checkout, and Billing Portal
+
+```mermaid
+sequenceDiagram
+        participant User as User/Frontend
+        participant API as API Route
+        participant Auth as BetterAuth
+        participant Polar as Polar API
+        participant Checkout as Checkout UI
+        participant Billing as Billing Portal
+
+        User->>API: Initiate payment (subscribe/checkout)
+        API->>Auth: Validate user session
+        Auth-->>API: Session valid
+        API->>Polar: Create checkout session
+        Polar-->>API: Checkout URL
+        API-->>User: Return checkout URL
+        User->>Checkout: Open checkout page
+        Checkout->>Polar: Complete payment
+        Polar-->>Checkout: Payment confirmation
+        Checkout-->>User: Success/failure UI
+        User->>API: Access billing portal
+        API->>Polar: Create billing portal session
+        Polar-->>API: Billing portal URL
+        API-->>User: Return billing portal URL
+        User->>Billing: Manage subscription
+        Billing->>Polar: Update/cancel subscription
+        Polar-->>Billing: Confirmation
+        Billing-->>User: Updated subscription UI
+```
+
+**Key Points:**
+- User initiates payment or subscription from the UI
+- API validates session with BetterAuth
+- Polar API is used to create checkout and billing portal sessions
+- User completes payment and manages subscription via Polar-hosted UIs
+- All sensitive payment logic handled by Polar
+
+**Files Involved:**
+- `/src/lib/polar.ts` - Polar API integration
+- `/src/features/subscriptions/` - Subscription logic and hooks
+- `/src/app/(dashboard)/` - UI for payments and billing
+
+---
 
 ---
 

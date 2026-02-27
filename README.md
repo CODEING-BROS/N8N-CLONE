@@ -65,10 +65,12 @@ A workflow automation platform inspired by n8n. This project enables users to cr
 - [x] Review & merge
 
 ### Chapter 9: Sidebar Layout ✅
-- [x] Improve file structure
-- [x] Create placeholder routes
-- [x] Create sidebar layout
-- [x] Update README and documentation
+
+### Chapter 10: Payments ✅
+- [x] Setup Polar
+- [x] Integrate with Better Auth
+- [x] Create checkout
+- [x] Create billing portal
 - [x] Branch and PR created
 - [x] Review & merge
 
@@ -273,6 +275,7 @@ Comprehensive visual guides and sequence diagrams for understanding the architec
 - **[Sequence Diagrams](SEQUENCE_DIAGRAMS.md)** - Complete request/response flows for all chapters
   - Chapter 2: User creation, authentication, and Prisma data flows
   - Chapter 3: Server-side prefetching, client-side queries, and tRPC context
+  - Chapter 10: Payments integration, checkout, and billing portal
   - Timing diagrams and performance metrics
 
 - **[Architecture Reference Guide](ARCHITECTURE_REFERENCE.md)** - Visual architecture and component relationships
@@ -761,8 +764,8 @@ sequenceDiagram
 **Last Updated**: February 23, 2026  
 **Current Chapter**: Chapter 8 - Error Tracking ✓
 
-**Last Updated**: February 24, 2026  
-**Current Chapter**: Chapter 9 - Sidebar Layout ✓
+**Last Updated**: February 27, 2026  
+**Current Chapter**: Chapter 10 - Payments ✓
 
 ### Chapter 9: Sidebar Layout ✅
 - [x] Improve file structure
